@@ -1,0 +1,35 @@
+.nav {
+  color: white;
+  font-size: 30px;
+  display: flex;
+  margin-right: 50px;
+  text-decoration: none;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  background-color: rgb(170, 249, 249);
+}
+
+.link {
+  padding: 20px;
+}
+
+.dashboardComponents {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Calendar {
+  height: 100px;
+  background-color: yellowgreen;
+}
+
+.ConfirmedEvents {
+  height: 200px;
+  background-color: rgb(255, 174, 0);
+}
+
+.NewEvents {
+  height: 200px;
+  background-color: rgb(215, 114, 255);
+}

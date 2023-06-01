@@ -1,5 +1,5 @@
 export default function NewEvents() {
   return (
-    <div>NewEvents</div>
+    <div className="NewEvents">NewEvents</div>
   )
 }

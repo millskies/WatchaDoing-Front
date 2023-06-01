@@ -1,5 +1,5 @@
 export default function ConfirmedEvents() {
   return (
-    <div>ConfirmedEvents</div>
+    <div className="ConfirmedEvents">ConfirmedEvents</div>
   )
 }
