@@ -1,0 +1,11 @@
+.nav{
+    color: white;
+    font-size: 30px;
+    display: flex;   
+    margin-right: 50px;
+    text-decoration: none;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+    background-color: rgb(170, 249, 249)
+  }
