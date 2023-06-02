@@ -1,0 +1,11 @@
+#Friends {
+    background-color: rgb(255, 193, 233);
+}
+
+#FriendsOverview {
+    background-color: rgb(250, 255, 185);
+}
+
+#OwnProfile .components {
+    display: flex;
+}

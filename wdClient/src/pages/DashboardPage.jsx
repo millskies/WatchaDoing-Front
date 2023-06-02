@@ -15,6 +15,7 @@ export default function DashboardPage() {
       <Navbar />
       <header>
       <p>Welcome, {user ? user.username : "anon"}</p> {/* changeLater */}
+      {!user && <Link to={"/anon"}>Go to profile page</Link>} {/* changeLater */}
       {user && <Link to={`/${user.username}`}>Go to your profile page</Link>}
       </header>
       <div className="dashboardComponents">

@@ -1,6 +1,9 @@
+import Navbar from "../components/Navbar"
 
 export default function EditProfilePage() {
-  return (
+  return (<div>
+    <Navbar/>
     <div>EditProfilePage</div>
+    </div>
   )
 }
