@@ -53,7 +53,7 @@ export default function SignUpPage() {
       return;
     }
 
-    const user = {username, email, password, passwordRepeat};
+    const user = {username, email, password, passwordRepeat, picture};
     console.log("useeeeeer: ", user)
 
     axios.post(baseUrl + '/signup', user)
@@ -61,7 +61,7 @@ export default function SignUpPage() {
       console.log(resp);
       navigate('/login');
     })
-    .catch(err => setError('Could not finish the process, try again'))
+    .catch(err => setError('Could not finish the process, try again', err))
 
   }
 
@@ -98,7 +98,7 @@ export default function SignUpPage() {
             SIGN UP
           </button>
 
-          {/* Need to implement error alert */}
+          {/* Need to implement error alert changeLater */}
         </form>
       </div>
     </>
