@@ -22,7 +22,7 @@ export default function ProfilePage() {
         console.log("useeertimeout:",user)
         setOwnProfile(true);
         setPublicProfile(false);
-      } else if (username != user.username) {
+      } else if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
         axios
           .get(baseUrl + "/users/" + username)
           .then((response) => {
@@ -39,29 +39,9 @@ export default function ProfilePage() {
     
   }, [username]);
 
-  // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
-
-  //Uncomment this part below when we have auth system correctly set up. //changeLater
-
-  // useEffect(() => {
-  //   if (user && username != user.username) {
-  //     axios
-  //       .get(baseUrl + "/users/" + username)
-  //       .then(setPublicProfile(true);
-  //       setOwnProfile(false))
-  //       .catch((err) => {
-  //         console.log(err);
-  //         navigate("/404");
-  //       });
-  //   } else if (!user) {
-  //     navigate("/404");
-  //   }
-  // }, []);
-
   return (
     <div>
-    blabla
-      {/* {ownProfile && (
+      {ownProfile && (
         <div>
           <OwnProfilePage />
         </div>
@@ -71,7 +51,7 @@ export default function ProfilePage() {
         <div>
           <PublicProfilePage />
         </div>
-      )} */}
+      )}
     </div>
   );
 }
