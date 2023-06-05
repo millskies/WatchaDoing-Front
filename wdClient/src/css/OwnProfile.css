@@ -1,4 +1,4 @@
-#Friends {
+#FriendsAll {
     background-color: rgb(255, 193, 233);
 }
 
@@ -6,6 +6,38 @@
     background-color: rgb(250, 255, 185);
 }
 
-#OwnProfile .components {
+#InviteList {
+    background-color: rgb(213, 255, 174);
+}
+
+#FriendsPending {
+    background-color: rgb(239, 239, 212);
+}
+
+#MyEvents {
+    background-color: antiquewhite;
+    height: 150px;
+}
+
+#Friends .rowFlex button {
+    width: 200px
+}
+
+#OwnProfile .leftRow {
     display: flex;
+    flex-direction: column;
+    width: 30%; /* changeLater: in mobile view it should occupy the whole width */
+}
+
+.rowFlex {
+    display: flex;
+    justify-content: space-between;
+}
+
+#OwnProfile .header {
+    display: flex;
+}
+
+#welcome {
+    padding-right: 30px
 }

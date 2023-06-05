@@ -5,7 +5,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import OwnProfilePage from "./OwnProfilePage";
 import PublicProfilePage from "./PublicProfilePage";
 
-export default function UserProfilePage() {
+export default function ProfilePage() {
   const { username } = useParams();
   // console.log("username: ", username)
   const { user, baseUrl } = useContext(authContext);

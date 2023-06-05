@@ -1,21 +1,21 @@
-import "../../css/OwnProfile.css"
-import { useParams, Link, Outlet } from 'react-router-dom'
+import "../../css/OwnProfile.css";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import Friends from "../../components/Friends"
+import Friends from "../../components/Friends";
+import MyEvents from "../../components/MyEvents";
 
 export default function OwnProfilePage() {
-    const { username } = useParams();
+  const { username } = useParams();
 
   return (
     <div id="OwnProfile">
-    <Navbar/>    
-    <div>OwnProfilePage</div>
-    <Link to={`/${username}/edit`}>Edit Profile!</Link>
-    <div className="components">
-    <Link to={`/${username}/friendslists`}>FriendsLists!</Link>
-    {/* <Outlet/> */}
-    <Friends/>
+      <Navbar />
+      <div className="header">
+        <h3 id="welcome">Welcome, {username}!</h3>
+        <Link to={`/${username}/edit`}>Edit Profile</Link>
+      </div>
+      <Friends />
+      <MyEvents />
     </div>
-    </div>
-  )
+  );
 }

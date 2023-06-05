@@ -1,0 +1,34 @@
+.nav{
+    color: white;
+    font-size: 30px;
+    display: flex;   
+    margin-right: 50px;
+    text-decoration: none;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+    background-color: rgb(170, 249, 249)
+  }
+
+  #signUp input,
+  #login input {
+    margin-bottom: 10px;
+  }
+
+  #signUp form,
+  #login form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #signUp div,
+  #login div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #signUp button,
+  #login button {
+    width: 200px
+  }

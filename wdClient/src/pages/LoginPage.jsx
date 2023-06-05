@@ -4,22 +4,21 @@ export default function LoginPage() {
   return (
     <>
     <NavbarLoggedOut/>
-    <div id="login-form">
+    <div id="login">
   <h2>Log In</h2>
   <form action="/login" method="POST" className="signup-form container">
-
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-<p></p>
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label><br/>
-    <a className="forgot" href="/forgot-password">Forgot password?</a>
-<p></p>
+  <div className="col-3">
+    <label htmlFor="username"> Username</label>
+      <input id="username" type="text" name="username" placeholder="Your username" />
+    </div>
+    <div className="col-3">
+    <label htmlFor="password"> Password</label>
+      <input id="password" type="password" name="password" placeholder="Your password" />
+      </div>
+    <a className="forgot" href="/forgot-password">Forgot password?</a> {/* changeLater: this won't be an anchor */}
     <button type="submit" className="signup">LOG IN</button>
 
-{/* Need to implement error alert */}
+{/* changeLater: Need to implement error alert */}
 
   </form>
 </div>

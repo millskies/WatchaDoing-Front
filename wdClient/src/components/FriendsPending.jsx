@@ -1,5 +1,5 @@
 export default function FriendsPending() {
   return (
-    <div>FriendsPending</div>
+    <div id="FriendsPending">FriendsPending component</div>
   )
 }

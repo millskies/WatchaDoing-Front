@@ -1,11 +1,10 @@
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export default function FriendsOverview() {
-  const { username } = useParams();
+
   return (
     <div id="FriendsOverview">
-      <p>FriendsOverview</p>
-      <Link to={`/${username}`}>Close</Link>
+        <p>This is Friends Overview component</p>
     </div>
   );
 }

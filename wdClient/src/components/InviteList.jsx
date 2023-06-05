@@ -1,5 +1,5 @@
 export default function InviteList() {
   return (
-    <div>InviteList</div>
+    <div id="InviteList">InviteList component</div>
   )
 }
