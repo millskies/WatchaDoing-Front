@@ -97,8 +97,6 @@ export default function SignUpPage() {
           <button type="submit" className="signup">
             SIGN UP
           </button>
-
-          {/* Need to implement error alert */}
         </form>
       </div>
     </>
