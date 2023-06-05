@@ -37,7 +37,7 @@ export default function ProfilePage() {
       }
     // console.log("params: ", params)
     
-  }, [username]);
+  }, []);
 
   return (
     <div>
