@@ -1,6 +1,13 @@
+import axios from "axios"
+import { authContext } from '../contexts/auth.context';
+import { Navigate } from 'react-router-dom';
+import Alert from '../components/Alert';
 import NavbarLoggedOut from "../components/NavbarLoggedOut";
+const baseUrl = 'http://localhost:5005/auth'
 
 export default function LoginPage() {
+
+
   return (
     <>
     <NavbarLoggedOut/>
