@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { authContext } from './contexts/auth.context';
+import { useContext } from "react";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -10,14 +12,15 @@ import ErrorPage from "./pages/ErrorPage";
 
 function App() {
 
+  const {isLoggedIn} = useContext(authContext);
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
+        <Route path="/" element={isLoggedIn ? <DashboardPage/> : <HomePage/>} />
         <Route path="/signup" element={<SignUpPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/logout" element={<LogoutPage/>} />
-        <Route path="/dashboard" element={<DashboardPage/>} />
         <Route path="/:username" element={<ProfilePage/>}/>
         <Route path="/:username/edit" element={<EditProfilePage/>} />
         <Route path="/*" element={<ErrorPage/>} />
