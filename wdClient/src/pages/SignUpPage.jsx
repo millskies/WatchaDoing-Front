@@ -53,7 +53,8 @@ export default function SignUpPage() {
       return;
     }
 
-    const user = {username, password};
+    const user = {username, email, password, passwordRepeat};
+    console.log("useeeeeer: ", user)
 
     axios.post(baseUrl + '/signup', user)
     .then(resp => {
