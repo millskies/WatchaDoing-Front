@@ -65,7 +65,7 @@ export default function SignUpPage() {
 
   }
 
-  if(!loading && isLoggedIn) return <Navigate to="/" />
+  if(!loading && isLoggedIn) return <Navigate to="/dashboard" />
 
   return (
     <>

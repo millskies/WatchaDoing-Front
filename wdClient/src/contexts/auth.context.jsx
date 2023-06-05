@@ -3,13 +3,13 @@ import { createContext, useEffect, useState } from "react";
 
 const authContext = createContext();
 
-const baseUrl = 'http://localhost:5005/';
+const baseUrl = 'http://localhost:5005';
 
 function AuthProviderWrapper({children}){
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); //false
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true); //true
 
     useEffect(()=>{
         isAuthenticated();
@@ -21,10 +21,10 @@ function AuthProviderWrapper({children}){
     }
 
     const isAuthenticated = () => {
-        //get a token:
+        // get a token:
         let token = localStorage.getItem('authToken');
         if(token) {
-            axios.get(baseUrl + '/verify', {headers: {authorization: `Bearer ${token}`}})
+            axios.get(baseUrl + '/auth/verify', {headers: {authorization: `Bearer ${token}`}})
             .then(({data}) => {
                 setIsLoggedIn(true);
                 setUser(data);
