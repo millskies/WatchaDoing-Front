@@ -6,9 +6,6 @@ const authContext = createContext();
 const baseUrl = 'http://localhost:5005';
 
 function AuthProviderWrapper({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
     const [isLoggedIn, setIsLoggedIn] = useState(false); //false
     const [user, setUser] = useState(null);
@@ -17,32 +14,6 @@ function AuthProviderWrapper({ children }) {
   const getHeaders = () => {
     let token = localStorage.getItem("authToken");
     return { headers: { authorization: `Bearer ${token}` } };
-  };
-
-  const isAuthenticated = () => {
-    //get a token:
-    let token = localStorage.getItem("authToken");
-    if (token) {
-      axios
-        .get(baseUrl + "/verify", {
-          headers: { authorization: `Bearer ${token}` },
-        })
-        .then(({ data }) => {
-          setIsLoggedIn(true);
-          setUser(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setIsLoggedIn(false);
-          setUser(null);
-          setLoading(false);
-          console.log(err);
-        });
-    } else {
-      setIsLoggedIn(false);
-      setUser(null);
-      setLoading(false);
-    }
   };
 
     const isAuthenticated = () => {
