@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authContext } from "../../contexts/auth.context";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import OwnProfilePage from "./OwnProfilePage";
 import PublicProfilePage from "./PublicProfilePage";
 
@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [publicProfile, setPublicProfile] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
+  
   useEffect(() => {
       if (username == user.username) {
         console.log("useeertimeout:",user)
@@ -37,7 +37,7 @@ export default function ProfilePage() {
       }
     // console.log("params: ", params)
     
-  }, [username]);
+  }, []);
 
   return (
     <div>

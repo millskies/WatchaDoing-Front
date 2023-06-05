@@ -14,13 +14,13 @@ export default function SignUpPage() {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [picture, setPicture] = useState("");
   const [error, setError] = useState('');
-
+  const [loadingPic, setLoadingPic] = useState(false);
   const navigate = useNavigate();
   const {isLoggedIn, loading} = useContext(authContext);
 
   const handleFileUpload = (e) => {
     // console.log("The file to be uploaded is: ", e.target.files[0]);
-
+    setLoadingPic(true)
     const uploadData = new FormData(); //FormData sirve para simular el objeto que recibiríamos de un formulario pero sin necesidad de tener un formulario.
 
     // imageUrl => this name has to be the same as in the model since we pass
@@ -33,6 +33,7 @@ export default function SignUpPage() {
         console.log("response is: ", response);
         // response carries "fileUrl" which we can use to update the state
         setPicture(response.data.fileUrl);
+        setLoadingPic(false)
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
   };
@@ -55,7 +56,7 @@ export default function SignUpPage() {
 
     const user = {username, email, password, passwordRepeat, picture};
     console.log("useeeeeer: ", user)
-
+    if(!loadingPic){
     axios.post(baseUrl + '/signup', user)
     .then(resp => {
       console.log(resp);
@@ -63,6 +64,7 @@ export default function SignUpPage() {
     })
     .catch(err => setError('Could not finish the process, try again', err))
 
+  }
   }
 
   if(!loading && isLoggedIn) return <Navigate to="/dashboard" />
@@ -90,11 +92,12 @@ export default function SignUpPage() {
             <label htmlFor="passwordRepeat">Password Repeat</label>
             <input id="passwordRepeat" type="password" name="passwordRepeat" placeholder="Repeat your password" value={passwordRepeat} onChange={(e)=>setPasswordRepeat(e.target.value)}/>
           </div>
-
+          
           <label>Image:</label>
           <input type="file" onChange={(e) => handleFileUpload(e)} />
+          {loadingPic && <p>Image is loading.....</p>}
 
-          <button type="submit" className="signup">
+          <button type="submit" className="signup" disabled={loadingPic}>
             SIGN UP
           </button>
 

@@ -5,7 +5,7 @@ import Alert from './Alert';
 
 const baseUrl = "http://localhost:5005/events"
 
-export default function EventUpdate() {
+export default function EventUpdate(eventId) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   // const [icon, setIcon] = useState("");
@@ -18,7 +18,7 @@ export default function EventUpdate() {
 
   const event = {title, description, datetime, location};
 
-  axios.post(baseUrl + '/:eventId/update', event)
+  axios.post(`${baseUrl}/${eventId}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
   })
@@ -30,7 +30,7 @@ const deleteHandler = (e) => {
 
 const event = {title, description, datetime, location};
 
-axios.post(baseUrl + '/:eventId/delete', event)
+axios.post(`${baseUrl}/${eventId}/delete`, event)
 .then(resp => {
   console.log("evento eliminado:", resp);
 })
