@@ -7,13 +7,14 @@ import { useParams } from "react-router-dom";
 
 const baseUrl = "http://localhost:5005/"
 
-export default function EventUpdate({eventId, eventTitle, eventDescription, eventLocation, eventDateTime, eventConfirmedJoiners}) {
+export default function EventUpdate({getUserInfo, eventInfo}) {
+//._id} eventTitle={event.title} eventDescription={event.description} eventLocation={event.location} eventDateTime={event.dateTime} eventConfirmedJoiners={event.confirmedJoiners
 
-  const [title, setTitle] = useState(eventTitle);
-  const [description, setDescription] = useState(eventDescription);
+  const [title, setTitle] = useState(eventInfo.title);
+  const [description, setDescription] = useState(eventInfo.description);
   const [icon, setIcon] = useState("");
-  const [datetime, setDatetime] = useState(eventDateTime);
-  const [location, setLocation] = useState(eventLocation);
+  const [datetime, setDatetime] = useState(eventInfo.dateTime);
+  const [location, setLocation] = useState(eventInfo.location);
   const [error, setError] = useState('');
   const {username} = useParams("");
 
@@ -23,10 +24,11 @@ export default function EventUpdate({eventId, eventTitle, eventDescription, even
 
   const event = {title, description, icon, datetime, location};
 
-  axios.post(baseUrl + `events/${eventId}/update`, event)
+  axios.post(baseUrl + `events/${eventInfo._id}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
-    window.location.href = `http://127.0.0.1:5173/${username}`; //changeLater
+    window.location.href = `http://localhost:5173/${username}`; //changeLater
+    // this is great for automatically closing the modal. Also it does a refresh, so we will get a new axios call (nice!).
   })
   .catch(err => setError('Could not finish the process, try again', err))
 }
@@ -36,10 +38,10 @@ const deleteHandler = (e) => {
 
 const event = {title, description, icon, datetime, location};
 
-axios.post(`${baseUrl}/${eventId}/delete`, event)
+axios.post(`${baseUrl}/${eventInfo._id}/delete`, event)
 .then(resp => {
   console.log("evento eliminado:", resp);
-  window.location.href = `http://127.0.0.1:5173/${username}`; //changeLate
+  window.location.href = `http://127.0.0.1:5173/${username}`; //changeLater
 })
 .catch(err => setError('Could not finish the process, try again', err))
 }
