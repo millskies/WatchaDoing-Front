@@ -14,7 +14,7 @@ export default function ProfilePage() {
 
   const [ownProfile, setOwnProfile] = useState(false); // changeLater
   const [publicProfile, setPublicProfile] = useState(false);
-  const [userData, setUserData] = useState({})
+  const [publicUserData, setPublicUserData] = useState({})
 
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function ProfilePage() {
             console.log("response: ", data);
             setPublicProfile(true);
             setOwnProfile(false);
-            setUserData(data);
+            setPublicUserData(data);
           })
           .catch((err) => {
             console.log(err);
@@ -50,7 +50,7 @@ export default function ProfilePage() {
 
       {publicProfile && (
         <div>
-          <PublicProfilePage publicUserName={userData.username} publicUserId={userData._id} publicUserFriendsPending={userData.friendsPending} />
+          <PublicProfilePage publicUserName={publicUserData.username} publicUserId={publicUserData._id} publicUserFriendsPending={publicUserData.friendsPending} />
         </div>
       )}
     </div>

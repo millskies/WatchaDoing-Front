@@ -3,7 +3,7 @@ import CreateEvent from "./CreateEvent";
 import EventDetail from "./EventDetail";
 import EventUpdate from "./EventUpdate";
 
-export default function MyEvents() {
+export default function MyEvents(events) {
   const [showCreateEvent, setShowCreateEvent] = useState(false);
 
   function toggleCreateEvent() {
