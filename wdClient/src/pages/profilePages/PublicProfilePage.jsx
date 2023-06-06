@@ -1,22 +1,26 @@
 import axios from "axios";
 import { authContext } from "../../contexts/auth.context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
-export default function PublicProfilePage() {
-  const { username } = useParams();
-  const otherUser = username;
-  const { user, baseUrl } = useContext(authContext);
-  const currentUser = user;
-  
+export default function PublicProfilePage({publicUserName, publicUserId, publicUserFriendsPending}) {
+  const { loading, user, baseUrl, getHeaders } = useContext(authContext);
+
+  const [alreadyFriends, setAlreadyFriends] = useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+    if (publicUserFriendsPending.includes(user.userId)) {
+      setAlreadyFriends(true)
+    } 
+  }, [loading]);
 
   function addFriend() {
-    let token = localStorage.getItem('authToken');
-    console.log("token: ", token)
-    axios.post(baseUrl + "/friendstatus" + "/6479ff1dc2ff688d4a41f2c5" + "/sendrequest", {}, {headers: {authorization: `Bearer ${token}`}}) /* I'm here testing stuff, trying to see if this workssss */
+    axios.post(baseUrl + "/friendstatus/" + publicUserId + "/sendrequest", {}, getHeaders())
         .then(({data})=>{
-            console.log("useeeer####: ", data)
+            console.log("friendship request outcome: ", data)
+            setAlreadyFriends(true)
         })
         .catch((err) => {
             console.log(err)
@@ -30,11 +34,14 @@ export default function PublicProfilePage() {
   return (
     <div>
       <Navbar />
-      <h4>Public Profile Page of {otherUser}</h4>
+      <h4>Public Profile Page of {publicUserName}</h4>
 
-      <button onClick={()=>{addFriend()}} type="button" className="btn btn-link">
+      {!alreadyFriends && <button onClick={()=>{addFriend()}} type="button" className="btn btn-primary">
         Add friend
-      </button>
+      </button>}
+      {alreadyFriends && <button disabled className="btn btn-secondary">
+        Friendship requested
+      </button>}
     </div>
   );
 }
