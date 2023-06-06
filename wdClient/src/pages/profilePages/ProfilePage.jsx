@@ -14,6 +14,7 @@ export default function ProfilePage() {
 
   const [ownProfile, setOwnProfile] = useState(false); // changeLater
   const [publicProfile, setPublicProfile] = useState(false);
+  const [userData, setUserData] = useState({})
 
   
   useEffect(() => {
@@ -24,10 +25,11 @@ export default function ProfilePage() {
       } else if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
         axios
           .get(baseUrl + "/users/" + username)
-          .then((response) => {
-            console.log("response: ", response);
+          .then(({data}) => {
+            console.log("response: ", data);
             setPublicProfile(true);
             setOwnProfile(false);
+            setUserData(data);
           })
           .catch((err) => {
             console.log(err);
@@ -48,7 +50,7 @@ export default function ProfilePage() {
 
       {publicProfile && (
         <div>
-          <PublicProfilePage />
+          <PublicProfilePage publicUserName={userData.username} publicUserId={userData._id} publicUserFriendsPending={userData.friendsPending} />
         </div>
       )}
     </div>

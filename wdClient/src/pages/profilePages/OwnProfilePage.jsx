@@ -6,7 +6,6 @@ import MyEvents from "../../components/MyEvents";
 
 export default function OwnProfilePage() {
   const { username } = useParams();
-  console.log("username: ",username)
 
   return (
     <div id="OwnProfile">
