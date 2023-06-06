@@ -3,9 +3,9 @@ import { useState } from "react";
 import Alert from './Alert';
 
 
-const baseUrl = "http://localhost:5005/events"
+const baseUrl = "http://localhost:5005/"
 
-export default function EventUpdate(eventId) {
+export default function EventUpdate({eventId}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   // const [icon, setIcon] = useState("");
@@ -18,7 +18,7 @@ export default function EventUpdate(eventId) {
 
   const event = {title, description, datetime, location};
 
-  axios.post(`${baseUrl}/${eventId}/update`, event)
+  axios.post(baseUrl + `events/${eventId}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
   })

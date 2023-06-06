@@ -6,7 +6,7 @@ const baseUrl = "http://localhost:5005/";
 
 export default function CreateEvent() {
   
-  const {username} = useParams;
+  const {username} = useParams();
 //State variables 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

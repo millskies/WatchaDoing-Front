@@ -1,16 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CreateEvent from "./CreateEvent";
-import EventDetail from "./EventDetail";
+// import EventDetail from "./EventDetail";
 import EventUpdate from "./EventUpdate";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
+const baseUrl = "http://localhost:5005/";
+
 
 export default function MyEvents() {
   const [showCreateEvent, setShowCreateEvent] = useState(false);
+  const [myEvents, setMyEvents] = useState([]);
+  const {username} = useParams();
 
   function toggleCreateEvent() {
     showCreateEvent ? setShowCreateEvent(false) : setShowCreateEvent(true);
   }
-
-  const changeLater = ["event 1", "event 2", "event 3"]; // this will be the array of eventsCreated of the current user
+  
+  useEffect(() => {
+    // Fetch events from the backend API
+    axios.get(baseUrl + `users/${username}`)
+      .then((resp) => {
+        let userEvents = resp.data.eventsJoined;
+        console.log(userEvents);
+        setMyEvents(userEvents);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []); 
 
   return (
     <div id="MyEvents">
@@ -27,19 +45,19 @@ export default function MyEvents() {
 
       {showCreateEvent && <CreateEvent />}
 
-      <EventUpdate /> {/* pasarle en props la id del evento correspondiente */}
 
-      {changeLater.map((event, k) => {
+      {myEvents.map((event, k) => {
         return (
           <div key={k} className="card" style={{ width: "25rem" }}>
             <div className="card-body">
               <button type="button" className="btn btn-link" >
-                {event}
+                {event.title}
               </button>
               <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
                 Edit 
               </button>
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <EventUpdate eventId={event._id}/> {/* pasarle en props la id del evento correspondiente */}
+              <p className="card-text">{event.description}</p>
             </div>
           </div>
         );
