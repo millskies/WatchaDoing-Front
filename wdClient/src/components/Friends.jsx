@@ -57,7 +57,7 @@ export default function Friends({userData}) {
       {showFriendsOverview && <FriendsOverview />}
       {showAllFriends && (
         <div>
-          <FriendsAll />
+          <FriendsAll userData={userData}/>
           <button className="btn btn-outline-primary" onClick={() => toggleFriendsPending()}>
             See friendship requests
           </button>
