@@ -57,7 +57,12 @@ export default function MyEvents() {
                 Edit 
               </button>
       <EventUpdate eventId={event._id}/> {/* pasarle en props la id del evento correspondiente */}
+              <p>{event.creator}</p>
               <p className="card-text">{event.description}</p>
+              <p>{event.location}</p>
+              <p>{event.dateTime}</p>
+              <p>{event.confirmedJoiners}</p>
+
             </div>
           </div>
         );
