@@ -14,7 +14,7 @@ export default function ProfilePage() {
 
   const [ownProfile, setOwnProfile] = useState(false); // changeLater
   const [publicProfile, setPublicProfile] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   
   useEffect(() => {
