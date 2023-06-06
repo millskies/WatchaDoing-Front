@@ -7,13 +7,13 @@ import { useParams } from "react-router-dom";
 
 const baseUrl = "http://localhost:5005/"
 
-export default function EventUpdate({eventId}) {
+export default function EventUpdate({eventId, eventTitle, eventDescription, eventLocation, eventDateTime, eventConfirmedJoiners}) {
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(eventTitle);
+  const [description, setDescription] = useState(eventDescription);
   const [icon, setIcon] = useState("");
-  const [datetime, setDatetime] = useState("");
-  const [location, setLocation] = useState("");
+  const [datetime, setDatetime] = useState(eventDateTime);
+  const [location, setLocation] = useState(eventLocation);
   const [error, setError] = useState('');
   const {username} = useParams("");
 

@@ -56,7 +56,7 @@ export default function MyEvents() {
               <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
                 Edit 
               </button>
-      <EventUpdate eventId={event._id}/> {/* pasarle en props la id del evento correspondiente */}
+      <EventUpdate eventId={event._id} eventTitle={event.title} eventDescription={event.description} eventLocation={event.location} eventDateTime={event.dateTime} eventConfirmedJoiners={event.confirmedJoiners}/> {/* pasarle en props la id del evento correspondiente */}
               <p>{event.creator}</p>
               <p className="card-text">{event.description}</p>
               <p>{event.location}</p>
