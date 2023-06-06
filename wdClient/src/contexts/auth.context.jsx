@@ -5,7 +5,7 @@ const authContext = createContext();
 
 const baseUrl = 'http://localhost:5005';
 
-function AuthProviderWrapper({children}){
+function AuthProviderWrapper({ children }) {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false); //false
     const [user, setUser] = useState(null);
@@ -14,11 +14,11 @@ function AuthProviderWrapper({children}){
     useEffect(()=>{
         isAuthenticated();
     }, []);
-
+  
     const getHeaders = () => {
-        let token = localStorage.getItem('authToken');
-        return {headers: {authorization: `Bearer ${token}`}};
-    }
+    let token = localStorage.getItem("authToken");
+    return { headers: { authorization: `Bearer ${token}` } };
+  };
 
     const isAuthenticated = () => {
         // get a token:
@@ -56,4 +56,4 @@ function AuthProviderWrapper({children}){
     </authContext.Provider>);
 }
 
-export {authContext, AuthProviderWrapper};
+export { authContext, AuthProviderWrapper };
