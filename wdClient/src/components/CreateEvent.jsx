@@ -7,7 +7,7 @@ const baseUrl = "http://localhost:5005/";
 export default function CreateEvent() {
   
   const {username} = useParams;
-
+//State variables 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(null);
@@ -16,21 +16,19 @@ export default function CreateEvent() {
   const [dropdownData, setDropdownData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  // const handleItemSelected = (item) => {
-  //   setSelectedItems([...selectedItems, item._id]);
-  // };
+  const handleItemSelected = (item) => {
+    setSelectedItems([...selectedItems, item._id]);
+  };
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-  //   let newEvent = { title, description, date, time, location, selectedItems };
-    // createEventFunc(newEvent);
-    // createEvent(newEvent)
-  // };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    let newEvent = { title, description, date, time, location, selectedItems };
+    createEventFunc(newEvent);
+    createEvent(newEvent)
+  };
 
   useEffect(() => {
     axios.get(baseUrl + `/users/${username}`)
-    .populate('inviteLists')
-    .populate('friendsConfirmed')
     .then((user) => {
       let friendsAndLists = [user.friendsConfirmed, user.inviteLists]
       setDropdownData(friendsAndLists)

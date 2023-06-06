@@ -11,7 +11,11 @@ function AuthProviderWrapper({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true); //true
 
-  const getHeaders = () => {
+    useEffect(()=>{
+        isAuthenticated();
+    }, []);
+  
+    const getHeaders = () => {
     let token = localStorage.getItem("authToken");
     return { headers: { authorization: `Bearer ${token}` } };
   };
