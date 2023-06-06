@@ -1,21 +1,75 @@
-export default function EventUpdate() {
+import axios from "axios"
+import { useEffect, useState, } from "react";
+import Alert from './Alert';
+import { useParams } from "react-router-dom";
+
+
+
+const baseUrl = "http://localhost:5005/"
+
+export default function EventUpdate({eventId, eventTitle, eventDescription, eventLocation, eventDateTime, eventConfirmedJoiners}) {
+
+  const [title, setTitle] = useState(eventTitle);
+  const [description, setDescription] = useState(eventDescription);
+  const [icon, setIcon] = useState("");
+  const [datetime, setDatetime] = useState(eventDateTime);
+  const [location, setLocation] = useState(eventLocation);
+  const [error, setError] = useState('');
+  const {username} = useParams("");
+
+  
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+  const event = {title, description, icon, datetime, location};
+
+  axios.post(baseUrl + `events/${eventId}/update`, event)
+  .then(resp => {
+    console.log("evento actualizado:", resp);
+    window.location.href = `http://127.0.0.1:5173/${username}`; //changeLater
+  })
+  .catch(err => setError('Could not finish the process, try again', err))
+}
+
+const deleteHandler = (e) => {
+  e.preventDefault();
+
+const event = {title, description, icon, datetime, location};
+
+axios.post(`${baseUrl}/${eventId}/delete`, event)
+.then(resp => {
+  console.log("evento eliminado:", resp);
+  window.location.href = `http://127.0.0.1:5173/${username}`; //changeLate
+})
+.catch(err => setError('Could not finish the process, try again', err))
+}
+
     return (
       <div className="modal" id="eventUpdate" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Modal title</h5>
+              <h5 className="modal-title">Update event</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
             <label></label>
-              <p>Modal body text goes here.</p>
-            </div>
+              <form onSubmit={submitHandler}>
+              {error != '' && <Alert message={error} />}
+              <input type="text" name="Title" placeholder="title" value={title} onChange={(e)=>setTitle(e.target.value)}/><br/>
+              <input type="text" name="Description" placeholder="{Description}" value={description} onChange={(e)=>setDescription(e.target.value)}/><br/>
+              <input type="file" name="Icon" placeholder="Icon" value={icon} onChange={(e)=>setIcon(e.target.value)}/><br/>
+              <input type="datetime-local" name="Date" placeholder="{datetime}" value={datetime} onChange={(e)=>setDatetime(e.target.value)}/><br/>
+              <input type="text" name="location" placeholder="{location}" value={location} onChange={(e)=>setLocation(e.target.value)}/>
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Save changes
               </button>
-              <button className="btn btn-danger">Delete event</button>
+            </div>
+              </form>
+            </div>
+            <div>
+              <button type="submit" onSubmit={deleteHandler} className="btn btn-danger">Delete event</button>
             </div>
           </div>
         </div>

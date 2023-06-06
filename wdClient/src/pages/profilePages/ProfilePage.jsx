@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [publicProfile, setPublicProfile] = useState(false);
   const [publicUserData, setPublicUserData] = useState({})
 
-
+  
   useEffect(() => {
     if (loading) return;
       if (username == user.username) {
