@@ -17,7 +17,7 @@ export default function CreateEvent() {
   const [time, setTime] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
-  const [address, setAddress] = useState('');
+  const [location, setLocation] = useState('');
   const [dropdownData, setDropdownData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -35,7 +35,7 @@ export default function CreateEvent() {
       creator: user.userId,
       description, 
       dateTime, 
-      address, 
+      location, 
       coordinates, 
       selectedItems };
     axios.post(baseUrl + "/events/create", newEvent)
