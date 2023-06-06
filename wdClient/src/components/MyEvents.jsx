@@ -39,7 +39,7 @@ export default function MyEvents() {
               <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
                 Edit 
               </button>
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
             </div>
           </div>
         );
