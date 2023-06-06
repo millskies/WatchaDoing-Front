@@ -17,6 +17,7 @@ export default function DashboardPage() {
       <p>Welcome, {user ? user.username : "anon"}</p> {/* changeLater */}
       {!user && <Link to={"/anon"}>Go to profile page</Link>} {/* changeLater */}
       {user && <Link to={`/${user.username}`}>Go to your profile page</Link>}
+      {user && <Link to="/Testuser">Go to Testuser page</Link>}
       </header>
       <div className="dashboardComponents">
         <div className="row1">
