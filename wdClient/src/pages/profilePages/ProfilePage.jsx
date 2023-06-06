@@ -6,18 +6,18 @@ import OwnProfilePage from "./OwnProfilePage";
 import PublicProfilePage from "./PublicProfilePage";
 
 export default function ProfilePage() {
-  const { user, baseUrl } = useContext(authContext);
-  console.log("useeer:",user)
+  const { user, baseUrl, loading } = useContext(authContext);
+  // console.log("useeer:",user)
   const { username } = useParams();
-  console.log("username: ", username)
+  // console.log("username: ", username)
   const navigate = useNavigate();
 
   const [ownProfile, setOwnProfile] = useState(false); // changeLater
   const [publicProfile, setPublicProfile] = useState(false);
-  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
+    if (loading) return;
       if (username == user.username) {
         setOwnProfile(true);
         setPublicProfile(false);
@@ -36,7 +36,7 @@ export default function ProfilePage() {
       }
     // console.log("params: ", params)
     
-  }, []);
+  }, [loading]);
 
   return (
     <div>
