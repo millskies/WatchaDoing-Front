@@ -100,8 +100,6 @@ export default function SignUpPage() {
           <button type="submit" className="signup" disabled={loadingPic}>
             SIGN UP
           </button>
-
-          {/* Need to implement error alert changeLater */}
         </form>
       </div>
     </>

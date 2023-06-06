@@ -1,8 +1,44 @@
-import { useState } from "react";
+import axios from "axios";
+import { authContext } from '../contexts/auth.context';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams} from "react-router-dom";
 import CreateInviteList from "./CreateInviteList";
 
 export default function InviteList() {
     const [showCreateList, setShowCreateList] = useState(false);
+    const [userData, setUserData] = useState({})
+
+    const navigate = useNavigate();
+    const {username} = useParams()
+
+    const {baseUrl} = useContext(authContext);
+
+    // useEffect(()=>{
+    //     console.log("username:",username)
+    //     axios.get(baseUrl + "/users/" + username)
+    //     .then(({data})=>{
+    //         setUserData(data)
+    //         console.log("useeeer####: ", data)
+    //     })
+    //     .catch((err) => {
+    //         console.log(err)
+    //         // set error message alarm?
+    //       });
+    // }, [])
+
+    useEffect(()=>{
+        let token = localStorage.getItem('authToken');
+        console.log("username:",username)
+        axios.post(baseUrl + "/friendstatus" + "/6479ff1dc2ff688d4a41f2c5" + "/sendrequest", {headers: {authorization: `Bearer ${token}`}}) /* I'm here testing stuff, trying to see if this workssss */
+        .then(({data})=>{
+            setUserData(data)
+            console.log("useeeer####: ", data)
+        })
+        .catch((err) => {
+            console.log(err)
+            // set error message alarm?
+          });
+    }, [])
 
     function toggleCreateList() {
         showCreateList ? setShowCreateList(false) : setShowCreateList(true);

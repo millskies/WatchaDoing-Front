@@ -19,7 +19,6 @@ export default function ProfilePage() {
   
   useEffect(() => {
       if (username == user.username) {
-        console.log("useeertimeout:",user)
         setOwnProfile(true);
         setPublicProfile(false);
       } else if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
