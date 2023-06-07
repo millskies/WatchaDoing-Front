@@ -1,5 +1,6 @@
 import axios from "axios"
-import { useEffect, useState, } from "react";
+import { authContext } from "../contexts/auth.context";
+import { useEffect, useState, useContext } from "react";
 import Alert from './Alert';
 import { useParams } from "react-router-dom";
 
@@ -7,9 +8,10 @@ import { useParams } from "react-router-dom";
 
 const baseUrl = "http://localhost:5005/"
 
-export default function EventUpdate({getUserInfo, eventInfo}) {
+export default function EventUpdate({eventInfo}) {
 //._id} eventTitle={event.title} eventDescription={event.description} eventLocation={event.location} eventDateTime={event.dateTime} eventConfirmedJoiners={event.confirmedJoiners
-
+  const { user, baseUrl, loading, getUserInfo } = useContext(authContext);
+  
   const [title, setTitle] = useState(eventInfo.title);
   const [description, setDescription] = useState(eventInfo.description);
   const [icon, setIcon] = useState("");
@@ -29,6 +31,7 @@ export default function EventUpdate({getUserInfo, eventInfo}) {
   axios.post(baseUrl + `events/${eventInfo._id}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
+
     // window.location.href = `http://localhost:5173/${username}`; //changeLater
     // this is great for automatically closing the modal. Also it does a refresh, so we will get a new axios call (nice!).
   })
