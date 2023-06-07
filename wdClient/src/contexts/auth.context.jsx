@@ -21,12 +21,12 @@ function AuthProviderWrapper({ children }) {
 
   useEffect(() => {
     if (!user) return;
-    getUserInfo();
     getUserInfoRaw();
+    getUserInfo();
   }, [loading]);
 
   useEffect(() => {
-    if (!loadingRaw && !loadingPopulated) setLoadingUserInfo(false)
+    if (!loadingRaw && !loadingPopulated) setLoadingUserInfo(false);
   }, [loadingRaw, loadingPopulated]);
 
   const getHeaders = () => {
@@ -58,36 +58,39 @@ function AuthProviderWrapper({ children }) {
     }
   };
 
+  // function for retrieving current user data (populated)!
   const getUserInfo = () => {
     if (loading) return;
     if (!user) return;
-    else {console.log("user",user)
-    axios
-      .get(baseUrl + "/users/" + user.username)
-      .then(({ data }) => {
-        // console.log("response userrr: ", data);
-        setCurrentUser(data);
-        setLoadingPopulated(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });}
+    else {
+      axios
+        .get(baseUrl + "/users/" + user.username)
+        .then(({ data }) => {
+          setCurrentUser(data);
+          setLoadingPopulated(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
+  // function for retrieving current user data, UNPOPULATED!
   const getUserInfoRaw = () => {
     if (loading) return;
     if (!user) return;
-    else {console.log("user",user)
-    axios
-      .get(baseUrl + "/users/" + user.userId)
-      .then(({ data }) => {
-        console.log("response userrr: ", data);
-        setCurrentUserRaw(data);
-        setLoadingRaw(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });}
+    else {
+      setLoadingRaw(true);
+      axios
+        .get(baseUrl + "/users/" + user.username + "/raw")
+        .then(({ data }) => {
+          setCurrentUserRaw(data);
+          setLoadingRaw(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   let exposedValues = {
@@ -101,7 +104,8 @@ function AuthProviderWrapper({ children }) {
     getUserInfoRaw,
     currentUser,
     currentUserRaw,
-    loadingUserInfo
+    loadingUserInfo,
+    loadingRaw,
   };
   return <authContext.Provider value={exposedValues}>{children}</authContext.Provider>;
 }

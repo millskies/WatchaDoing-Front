@@ -26,7 +26,6 @@ export default function ProfilePage() {
       axios
         .get(baseUrl + "/users/" + username)
         .then(({ data }) => {
-          console.log("response: ", data);
           setPublicProfile(true);
           setOwnProfile(false);
           setPublicUserData(data);
