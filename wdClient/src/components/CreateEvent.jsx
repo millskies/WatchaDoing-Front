@@ -21,16 +21,27 @@ export default function CreateEvent() {
   const [location, setLocation] = useState('');
   const [dropdownData, setDropdownData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [inviteAll, setInviteAll] = useState(false);
 
-  const handleItemSelected = (item) => {
+ useEffect(()=>{
+   console.log('#########', selectedItems)
+ },[selectedItems])
+
+ useEffect(()=>{
+  console.log('##########', inviteAll)
+  if(inviteAll) setSelectedItems(dropdownData)
+},[inviteAll])
+
+const handleItemSelected = (item) => {
     setSelectedItems([...selectedItems, item._id]);
-  };
+    };
 
-  //calls the backend route to create the event
+
+  //------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
   const submitHandler = (e) => {
     e.preventDefault();
     let coordinates = { lat, lng}
-    console.log('########', coordinates, location)
+    let pendingJoiners = [...new Set(selectedItems)]
     let newEvent = { 
       title, 
       creator: user.userId,
@@ -38,7 +49,7 @@ export default function CreateEvent() {
       dateTime, 
       location, 
       coordinates, 
-      selectedItems };
+      pendingJoiners};
       
     axios.post(baseUrl + "/events/create", newEvent)
     .then((res) => {
@@ -46,36 +57,36 @@ export default function CreateEvent() {
     })
     .catch((err) => {
       console.log(err);
-      // navigate("/404");
     });
   };
 
-  //Fetching user friends + invitelists to populate the dropdown and allow to select friends to invite
+//------------------ CREATE NOTIFICATION (maybe)---------------------
 
+
+
+  //Fetching user friends + invitelists to populate the dropdown and allow to select friends to invite
   useEffect(() => {
     axios.get(baseUrl + `/users/${username}`)
     .then(({data}) => {
       let friendsAndLists = [...data.friendsConfirmed, ...data.inviteLists]
       setDropdownData(data.friendsConfirmed)
-      console.log('^^^^^^^^^^^^^^^^^^^^^^', friendsAndLists)
+      console.log('############', friendsAndLists)
     })
     .catch((err) => {
       console.log(err);
     });
 
-    // CONFIGURING GOOGLE MAPS API
-      const center = { lat: 50.064192, lng: -130.605469 };
+    // -------------- CONFIGURING GOOGLE MAPS API ---------------
+      // const center = { lat: 50.064192, lng: -130.605469 };
       // Create a bounding box with sides ~10km away from the center point
-        const defaultBounds = {
-          north: center.lat + 0.1,
-          south: center.lat - 0.1,
-          east: center.lng + 0.1,
-          west: center.lng - 0.1};
+        // const defaultBounds = {
+        //   north: center.lat + 0.1,
+        //   south: center.lat - 0.1,
+        //   east: center.lng + 0.1,
+        //   west: center.lng - 0.1};
     
-        const input = document.getElementById("location");
-          
+        // const input = document.getElementById("location");
         // const autocomplete = new google.maps.places.Autocomplete(input, options);
-
   }, [])
 
   return (
@@ -100,12 +111,9 @@ export default function CreateEvent() {
         </div> */}
 
 {/* Select location, using Google places API */}
-
         <div className="mb-3">
           <label htmlFor="location" className="form-label">Where?</label>
-
         <AutoComplete apiKey={'AIzaSyDs5I5np83v56WXBt2JMvkUJSx_BWZETQw'} 
-        
         options={{
           componentRestrictions: { country: "es" },
           fields: ["address_components", "geometry", "icon", "name"],
@@ -116,11 +124,9 @@ export default function CreateEvent() {
         setLocation(place.formatted_address );
         setLat(place.geometry.location.lat());
         setLng(place.geometry.location.lng());
-        console.log("address: ", place)}}
-         />
-
-          {/* <input id="loctation" type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)}/> */}
+        console.log("address: ", place)}}/>
         </div>
+
         {/* <div className="mb-3">
           <label htmlFor="icon" className="form-label">Select icon</label>
           <input type="text" className="form-control" onChange={(e) => setTitle(e.target.value)}/>
@@ -135,23 +141,25 @@ export default function CreateEvent() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >Invite friends</button>
-        <select className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          {dropdownData.map((item) => (
-        <option className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item._id)}>
-          {item.username}
-        </option>
-      ))}
-        </select>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {dropdownData.map((item) => (
+              <button className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
+                {item.username}
+              </button>
+            ))}
+          </div>
+        </div>
 
+{/* ---------------- checkbox to invite to invite all friends ------------------ */}
         <div className="mb-3 form-check">
-        <input type="checkbox" className="form-check-input" />
+        <input type="checkbox" className="form-check-input" 
+        onChange={() => setInviteAll(!inviteAll)} />
           <label className="form-check-label" htmlFor="exampleCheck1">
           Invite all your friends
           </label>
         </div>
 
-      {/* checkbox to allow invited to invite their friends */}
-        </div>
+{/* ----------------- checkbox to allow invited to invite their friends ----------------- */}
         <div className="mb-3 form-check">
           <input type="checkbox" className="form-check-input" />
           <label className="form-check-label" htmlFor="exampleCheck1">
