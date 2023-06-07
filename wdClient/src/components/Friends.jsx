@@ -6,7 +6,7 @@ import FriendsPending from "./FriendsPending";
 
 //This component manages the profile components of: on one hand FriendsLists and on the other hand FriendsOverview and FriendsAll.
 
-export default function Friends({userData, getUserInfo}) {
+export default function Friends({userData}) {
   const [showFriendsLists, setShowFriendsLists] = useState(false);
   const [showFriendsOverview, setShowFriendsOverview] = useState(true);
   const [showAllFriends, setShowAllFriends] = useState(false);
@@ -65,7 +65,7 @@ export default function Friends({userData, getUserInfo}) {
       )}
       {showFriendsPending && (
         <div>
-          <FriendsPending userData={userData} getUserInfo={getUserInfo}/>
+          <FriendsPending userData={userData} />
           <button className="btn btn-outline-primary" onClick={() => toggleFriendsPending()}>
             See current friends
           </button>
