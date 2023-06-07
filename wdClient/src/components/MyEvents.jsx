@@ -30,6 +30,7 @@ export default function MyEvents({events}) {
   //       console.error("Error fetching events:", error);
   //     });
   // }, []); 
+  
 
   return (
     <div id="MyEvents">
@@ -57,12 +58,13 @@ export default function MyEvents({events}) {
               <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
                 Edit 
               </button>
-      <EventUpdate eventInfo={event}/>
-              <p>{event.creator}</p>
+      <EventUpdate eventInfo={event} /> 
+              {/* <img className="card-text" src={event.icon} alt="event icon"/> */}
+              <p className="card-text">{event.creator}</p>
               <p className="card-text">{event.description}</p>
-              <p>{event.location}</p>
-              <p>{event.dateTime}</p>
-              <p>{event.confirmedJoiners}</p>
+              <p className="card-text">{event.location}</p>
+              <p className="card-text">{event.dateTime}</p>
+              <p className="card-text">{event.confirmedJoiners}</p>
 
             </div>
           </div>

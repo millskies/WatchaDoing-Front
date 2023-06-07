@@ -18,23 +18,26 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (loading) return;
-    if (username == user.username) {
-      setOwnProfile(true);
-      setPublicProfile(false);
-    } else if (username != user.username) {
-      // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
-      axios
-        .get(baseUrl + "/users/" + username)
-        .then(({ data }) => {
-          setPublicProfile(true);
-          setOwnProfile(false);
-          setPublicUserData(data);
-        })
-        .catch((err) => {
-          console.log(err);
-          navigate("/404");
-        });
-    }
+    console.log("@@@", user)
+      if (username == user.username) {
+        setOwnProfile(true);
+        setPublicProfile(false);
+      } else if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
+        axios
+          .get(baseUrl + "/users/" + username)
+          .then(({data}) => {
+            console.log("response: ", data);
+            setPublicProfile(true);
+            setOwnProfile(false);
+            setPublicUserData(data);
+          })
+          .catch((err) => {
+            console.log(err);
+            navigate("/404");
+          });
+      }
+    // console.log("params: ", params)
+    
   }, [loading]);
 
   return (
