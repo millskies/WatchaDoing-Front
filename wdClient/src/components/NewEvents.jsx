@@ -6,11 +6,16 @@ import { Link } from "react-router-dom";
 
 
 export default function NewEvents() {
+  const [loadingNewEvents, setLoadingNewEvents] = useState(true);
+  const [newEvents, setNewEvents] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [joinedEvents, setJoinedEvents] = useState([]);
+  const { isLoggedIn, user, loading, baseUrl, getHeaders } = useContext(authContext);
 
-  const [loadingNewEvents, setLoadingNewEvents] = useState(true)
-  const [newEvents, setNewEvents] = useState('');
-  const [currentUser, setCurrentUser] = useState({})
-  const { isLoggedIn, user, loading, baseUrl } = useContext(authContext);
+useEffect(()=>{
+  console.log('-----------', newEvents)
+  console.log('-----------', currentUser)
+}, [newEvents])
 
   useEffect(()=>{
     axios.get(baseUrl + "/users/" + user.username)
@@ -26,6 +31,40 @@ export default function NewEvents() {
   },[loading])
 
 
+//------------- FUNCTIONS FOR BUTTONS --------------------
+  const joinEvent = (eventId)=>{
+    console.log("*************", eventId)
+    axios.post(baseUrl + "/events/" + eventId + "/accept", {}, getHeaders())
+    .then(({data}) => {
+      setJoinedEvents(prevJoinedEvents => [...prevJoinedEvents, eventId])
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  const unJoinEvent = (eventId)=>{
+    axios.post(baseUrl + "/events/" + eventId + "/unjoin", {}, getHeaders())
+    .then(({data}) => {
+      setJoinedEvents(prevJoinedEvents => prevJoinedEvents.filter(id => id !== eventId));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  const rejectEvent = (eventId)=>{
+    axios.post(baseUrl + "/events/" + eventId + "/reject", {}, getHeaders())
+    .then(({data}) => {
+      setNewEvents(prevNewEvents => prevNewEvents.filter(id => id !== eventId))
+      console.log('{{{{{{{{{{{', newEvents)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+
   return (
     <div className="NewEvents">
     <h3>New events</h3>
@@ -34,11 +73,20 @@ export default function NewEvents() {
     {!loading && newEvents.length == 0 && <p>No events yet</p>}
 
     {!loading && newEvents.map(event => <div className='new-event' key={event._id}>
-        <h2>{event.title}</h2>
+        <h4>{event.title}</h4>
         <p>{event.description}</p>
+        <p>{event.location}</p>
+        <p>{event.dateTime}</p>
+
+        {/* ------- Button to either join or unjoin ---------- */}
         <Link to={`/events/${event._id}`}>More details</Link>
-        <button type="button" className="btn btn-primary" onClick={joinEvent}>Join</button>
+        {joinedEvents.includes(event._id) ? <button type="button" className="btn btn-primary" onClick={ () => unJoinEvent(event._id)}>Unjoin</button> : <> <button type="button" className="btn btn-primary" onClick={ () => joinEvent(event._id)}>Join</button>
+        <button type="button" className="btn btn-danger" onClick={() => rejectEvent(event._id)}>Delete for me</button></>}
+
+        {/* ----- Button to reject event and make it disappear from the list ------- */}
+        
       </div>)}
+
     </div> 
   )
 }
