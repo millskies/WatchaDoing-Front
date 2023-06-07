@@ -17,7 +17,7 @@ export default function OwnProfilePage() {
     axios
           .get(baseUrl + "/users/" + username)
           .then(({data}) => {
-            // console.log("response userrr: ", data);
+            console.log("response userrr: ", data);
             setCurrentUser(data)
             setLoadingProfile(false)
           })

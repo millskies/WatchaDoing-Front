@@ -13,21 +13,23 @@ export default function EventUpdate({getUserInfo, eventInfo}) {
   const [title, setTitle] = useState(eventInfo.title);
   const [description, setDescription] = useState(eventInfo.description);
   const [icon, setIcon] = useState("");
-  const [datetime, setDatetime] = useState(eventInfo.dateTime);
+  const [datetime, setDatetime] = useState("");
   const [location, setLocation] = useState(eventInfo.location);
   const [error, setError] = useState('');
-  const {username} = useParams("");
+  const { username } = useParams("");
 
-  
+  const dateHandler = (e)=>{
+    console.log("----", e.target.value);
+    setDatetime(e.target.value)}
   const submitHandler = (e) => {
     e.preventDefault();
 
-  const event = {title, description, icon, datetime, location};
-
+  const event = {title, description, icon, dateTime:datetime, location};
+  console.log("@@@", event)
   axios.post(baseUrl + `events/${eventInfo._id}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
-    window.location.href = `http://localhost:5173/${username}`; //changeLater
+    // window.location.href = `http://localhost:5173/${username}`; //changeLater
     // this is great for automatically closing the modal. Also it does a refresh, so we will get a new axios call (nice!).
   })
   .catch(err => setError('Could not finish the process, try again', err))
@@ -36,9 +38,9 @@ export default function EventUpdate({getUserInfo, eventInfo}) {
 const deleteHandler = (e) => {
   e.preventDefault();
 
-const event = {title, description, icon, datetime, location};
+const event = {title, description, icon, dateTime:datetime, location};
 
-axios.post(`${baseUrl}/${eventInfo._id}/delete`, event)
+axios.post(baseUrl + `${eventInfo._id}/delete`, event)
 .then(resp => {
   console.log("evento eliminado:", resp);
   window.location.href = `http://127.0.0.1:5173/${username}`; //changeLater
@@ -61,17 +63,17 @@ axios.post(`${baseUrl}/${eventInfo._id}/delete`, event)
               <input type="text" name="Title" placeholder="title" value={title} onChange={(e)=>setTitle(e.target.value)}/><br/>
               <input type="text" name="Description" placeholder="{Description}" value={description} onChange={(e)=>setDescription(e.target.value)}/><br/>
               <input type="file" name="Icon" placeholder="Icon" value={icon} onChange={(e)=>setIcon(e.target.value)}/><br/>
-              <input type="datetime-local" name="Date" placeholder="{datetime}" value={datetime} onChange={(e)=>setDatetime(e.target.value)}/><br/>
+              <input type="datetime-local" placeholder="{datetime}" value={datetime} onChange={dateHandler}/><br/>
               <input type="text" name="location" placeholder="{location}" value={location} onChange={(e)=>setLocation(e.target.value)}/>
             <div className="modal-footer">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
                 Save changes
               </button>
             </div>
               </form>
             </div>
             <div>
-              <button type="submit" onSubmit={deleteHandler} className="btn btn-danger">Delete event</button>
+              <button type="submit" onSubmit={deleteHandler} className="btn btn-danger" data-bs-dismiss="modal">Delete event</button>
             </div>
           </div>
         </div>

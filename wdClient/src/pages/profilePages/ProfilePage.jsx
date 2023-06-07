@@ -19,6 +19,7 @@ export default function ProfilePage() {
   
   useEffect(() => {
     if (loading) return;
+    console.log("@@@", user)
       if (username == user.username) {
         setOwnProfile(true);
         setPublicProfile(false);
