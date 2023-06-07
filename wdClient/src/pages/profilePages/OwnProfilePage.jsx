@@ -9,22 +9,20 @@ import MyEvents from "../../components/MyEvents";
 
 export default function OwnProfilePage() {
   const { username } = useParams();
-  const { user, baseUrl, loading } = useContext(authContext);
-  const [currentUser, setCurrentUser] = useState({})
-  const [loadingProfile, setLoadingProfile] = useState(true)
+  const { user, baseUrl, loading, getUserInfo, currentUser, loadingUserInfo } = useContext(authContext);
 
-  function getUserInfo() { //we can pass this function through props and call it whenever we update any info (events we create or update, new lists we create..).
-    axios
-          .get(baseUrl + "/users/" + username)
-          .then(({data}) => {
-            // console.log("response userrr: ", data);
-            setCurrentUser(data)
-            setLoadingProfile(false)
-          })
-          .catch((err) => {
-            console.log(err)
-          });
-  }
+  // function getUserInfo() { //we can pass this function through props and call it whenever we update any info (events we create or update, new lists we create..).
+  //   axios
+  //         .get(baseUrl + "/users/" + username)
+  //         .then(({data}) => {
+  //           // console.log("response userrr: ", data);
+  //           setCurrentUser(data)
+  //           setLoadingProfile(false)
+  //         })
+  //         .catch((err) => {
+  //           console.log(err)
+  //         });
+  // }
 
   // Retrieve current user data at mounting phase.
   useEffect(()=>{
@@ -39,8 +37,8 @@ export default function OwnProfilePage() {
         <h3 id="welcome">Welcome, {username}!</h3>
         <Link to={`/${username}/edit`}>Edit Profile</Link>
       </div>
-      <Friends userData={currentUser} getUserInfo={getUserInfo}/>
-      {!loadingProfile && <MyEvents events={currentUser.eventsCreated} getUserInfo={getUserInfo}/>}
+      <Friends userData={currentUser}/>
+      {!loadingUserInfo && <MyEvents events={currentUser.eventsCreated}/>}
     </div>
   );
 }

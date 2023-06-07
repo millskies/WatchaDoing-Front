@@ -4,11 +4,8 @@ import Alert from './Alert';
 import { useParams } from "react-router-dom";
 
 
-
-const baseUrl = "http://localhost:5005/"
-
-export default function EventUpdate({getUserInfo, eventInfo}) {
-//._id} eventTitle={event.title} eventDescription={event.description} eventLocation={event.location} eventDateTime={event.dateTime} eventConfirmedJoiners={event.confirmedJoiners
+export default function EventUpdate({eventInfo}) {
+  const { baseUrl } = useContext(authContext);
 
   const [title, setTitle] = useState(eventInfo.title);
   const [description, setDescription] = useState(eventInfo.description);
@@ -24,7 +21,7 @@ export default function EventUpdate({getUserInfo, eventInfo}) {
 
   const event = {title, description, icon, datetime, location};
 
-  axios.post(baseUrl + `events/${eventInfo._id}/update`, event)
+  axios.post(baseUrl + `/events/${eventInfo._id}/update`, event)
   .then(resp => {
     console.log("evento actualizado:", resp);
     window.location.href = `http://localhost:5173/${username}`; //changeLater
