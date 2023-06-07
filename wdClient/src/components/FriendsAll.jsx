@@ -12,7 +12,7 @@ export default function FriendsAll() {
           return (
             <div className="friend" key={friend._id}>
               <img className="friendIcon" src={friend.picture} alt={friend.username} />
-              <Link to={`/${friend.username}`}> {friend.username} </Link>
+              <Link onClick={() => {window.location.href=`/${friend.username}`}}> {friend.username} </Link>
             </div>
           );
         })}

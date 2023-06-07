@@ -1,5 +1,6 @@
 import axios from "axios";
 import { authContext } from "../contexts/auth.context";
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 export default function FriendsPending({ userData }) {
@@ -21,7 +22,7 @@ export default function FriendsPending({ userData }) {
           <div key={friendRequest._id}>
             <div className="rowFlex">
               <img src={friendRequest.picture} alt={friendRequest.username} />
-              <p>{friendRequest.username}</p>
+              <Link onClick={() => {window.location.href=`/${friendRequest.username}`}}> {friendRequest.username} </Link>
               <button onClick={() => acceptFriend(friendRequest._id)} type="submit" className="btn btn-success">
                 Accept
               </button>

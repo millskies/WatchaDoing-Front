@@ -57,18 +57,21 @@
     padding-right: 30px
 }
 
-#FriendsOverview {
+#FriendsOverview,
+#FriendsAll {
     display: flex;
     flex-wrap: wrap;
 }
 
-.fewFriends img{
+.fewFriends img,
+.friend img {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-.fewFriends {
+.fewFriends,
+.friend {
     padding: 10px 3px
 }
 

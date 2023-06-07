@@ -24,7 +24,7 @@ export default function OwnProfilePage() {
         <h3 id="welcome">Welcome, {username}!</h3>
         <Link to={`/${username}/edit`}>Edit Profile</Link>
       </div>
-      <Friends userData={currentUser}/>
+      <Friends userData={currentUser} />
       {!loadingUserInfo && <MyEvents events={currentUser.eventsCreated}/>}
     </div>
   );

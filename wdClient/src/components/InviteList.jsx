@@ -1,5 +1,5 @@
 // import axios from "axios";
-// import { authContext } from '../contexts/auth.context';
+import { authContext } from '../contexts/auth.context';
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams} from "react-router-dom";
 import CreateInviteList from "./CreateInviteList";
@@ -9,22 +9,8 @@ export default function InviteList() {
     const [userData, setUserData] = useState({})
 
     const navigate = useNavigate();
-    const {username} = useParams()
 
-    // const {baseUrl} = useContext(authContext);
-
-    // useEffect(()=>{
-    //     console.log("username:",username)
-    //     axios.get(baseUrl + "/users/" + username)
-    //     .then(({data})=>{
-    //         setUserData(data)
-    //         console.log("useeeer####: ", data)
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //         // set error message alarm?
-    //       });
-    // }, [])
+    const {baseUrl} = useContext(authContext);
 
 
     function toggleCreateList() {

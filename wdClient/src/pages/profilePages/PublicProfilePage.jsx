@@ -5,13 +5,15 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
 export default function PublicProfilePage() {
-  const { loading, loadingUserInfo, user, currentUser, baseUrl, getHeaders, currentUserRaw, getUserInfo, getUserInfoRaw, loadingRaw } = useContext(authContext);
+  const { baseUrl, getHeaders, currentUserRaw, getUserInfoRaw, loadingRaw } = useContext(authContext);
   const { username } = useParams();
 
   const [publicUserRaw, setPublicUserRaw] = useState({});
   const [loadingPublicUser, setLoadingPublicUser] = useState(true);
-
   const [friendshipStatus, setFriendshipStatus] = useState("");
+ 
+
+  
 
   function getPublicUserDataRaw() {
     axios
