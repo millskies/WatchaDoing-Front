@@ -10,6 +10,12 @@
   background-color: rgb(170, 249, 249);
 }
 
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .link {
   padding: 20px;
 }
@@ -32,4 +38,15 @@
 .NewEvents {
   height: 200px;
   background-color: rgb(215, 114, 255);
+}
+
+#profilePicture{
+  width: 10%;
+  max-width: 80px;
+}
+
+
+.fa-lemon{
+  width: 100px;
+  color: #e1e510;
 }

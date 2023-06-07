@@ -10,8 +10,7 @@ import NewEvents from "../components/NewEvents";
 
 export default function DashboardPage() {
   const [loadingDashboard, setLoadingDashboard] = useState(true)
-  const [currentUser, setCurrentUser] = useState({}) //here in currentUser we will have all the updated info of our current user.
-  // Might need to populate on the backend route!!
+  const [currentUser, setCurrentUser] = useState({}) //info of current user, populated on the backend route
   const { isLoggedIn, user, loading, baseUrl } = useContext(authContext);
 
   useEffect(()=>{
@@ -19,7 +18,7 @@ export default function DashboardPage() {
     axios.get(baseUrl + "/users/" + user.username)
     .then(({data}) => {
       setCurrentUser(data);
-      setLoadingDashboard(false)
+      // setLoadingDashboard(false)
     })
     .catch((err) => {
       console.log(err);
@@ -30,10 +29,10 @@ export default function DashboardPage() {
     <>
       <Navbar />
       <header>
-        <p>Welcome, {user ? user.username : "anon"}</p>
-        {!user && <Link to={"/anon"}>Go to profile page</Link>} {/* changeLater */}
-        {user && <Link to={`/${user.username}`}>Go to your profile page</Link>}
-        {user && <Link to="/Testuser">Go to Testuser page</Link>}
+      <img id="profilePicture" src={currentUser.picture} alt="profile picture"></img>
+        <p>Welcome, {user ? user.username : "anon"}!</p>
+        {/* {user && <Link to={`/${user.username}`}>Go to your profile page</Link>}
+        {user && <Link to="/Testuser">Go to Testuser page</Link>} */}
       </header>
       <div className="dashboardComponents">
         <div className="row1">

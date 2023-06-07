@@ -6,8 +6,8 @@ import axios from "axios";
 import { authContext } from "../contexts/auth.context";
 import { useParams } from "react-router-dom";
 
-export default function MyEvents({events, getUserInfo}) {
-  const { user, baseUrl, loading } = useContext(authContext);
+export default function MyEvents({events}) {
+  const { user, baseUrl, loading, getUserInfo } = useContext(authContext);
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [myEvents, setMyEvents] = useState([]);
   const {username} = useParams();
@@ -45,10 +45,10 @@ export default function MyEvents({events, getUserInfo}) {
         {!showCreateEvent ? <img style={{ width: "20px" }} src="plus.png" alt="create event" /> : <img style={{ width: "20px" }} src="minus.png" alt="roll up create event" />}
       </button>
 
-      {showCreateEvent && <CreateEvent getUserInfo={getUserInfo} />}
+      {showCreateEvent && <CreateEvent />}
 
 
-      {events.map((event, k) => {
+      {events && events.map((event, k) => {
         return (
           <div key={k} className="card" style={{ width: "25rem" }}>
             <div className="card-body">
@@ -58,7 +58,7 @@ export default function MyEvents({events, getUserInfo}) {
               <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
                 Edit 
               </button>
-      <EventUpdate eventInfo={event} getUserInfo={getUserInfo}/> {/* pasarle en props la id del evento correspondiente */}
+      <EventUpdate eventInfo={event} /> 
               {/* <img className="card-text" src={event.icon} alt="event icon"/> */}
               <p className="card-text">{event.creator}</p>
               <p className="card-text">{event.description}</p>

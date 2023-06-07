@@ -14,9 +14,8 @@ export default function ProfilePage() {
 
   const [ownProfile, setOwnProfile] = useState(false); // changeLater
   const [publicProfile, setPublicProfile] = useState(false);
-  const [publicUserData, setPublicUserData] = useState({})
+  const [publicUserData, setPublicUserData] = useState({});
 
-  
   useEffect(() => {
     if (loading) return;
     console.log("@@@", user)
@@ -51,7 +50,7 @@ export default function ProfilePage() {
 
       {publicProfile && (
         <div>
-          <PublicProfilePage publicUserName={publicUserData.username} publicUserId={publicUserData._id} publicUserFriendsPending={publicUserData.friendsPending} />
+          <PublicProfilePage publicUserData={publicUserData} />
         </div>
       )}
     </div>
