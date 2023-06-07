@@ -19,11 +19,13 @@ export default function FriendsPending({ userData }) {
       {userData.friendsPending.map((friendRequest) => {
         return (
           <div key={friendRequest._id}>
-            <img src={friendRequest.picture} alt={friendRequest.username} />
-            {friendRequest.username}
-            <button onClick={() => acceptFriend(friendRequest._id)} type="submit" className="btn btn-success">
-              Accept
-            </button>
+            <div className="rowFlex">
+              <img src={friendRequest.picture} alt={friendRequest.username} />
+              <p>{friendRequest.username}</p>
+              <button onClick={() => acceptFriend(friendRequest._id)} type="submit" className="btn btn-success">
+                Accept
+              </button>
+            </div>
           </div>
         );
       })}

@@ -4,8 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
-const friendshipStatus = ["TOACCEPT", "REQUESTED", "TOREVOKE", "TOSEND"];
-
 export default function PublicProfilePage() {
   const { loading, loadingUserInfo, user, currentUser, baseUrl, getHeaders, currentUserRaw, getUserInfo, getUserInfoRaw, loadingRaw } = useContext(authContext);
   const { username } = useParams();
@@ -71,7 +69,7 @@ export default function PublicProfilePage() {
     axios
       .post(baseUrl + "/friendstatus/" + publicUserRaw._id + "/" + "accept", {}, getHeaders())
       .then((resp) => {
-        getPublicUserDataRaw();
+        getUserInfoRaw();
       })
       .catch((err) => console.log(err));
   }

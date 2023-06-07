@@ -44,13 +44,13 @@ export default function Friends({userData}) {
       </button>
       {/* changeLater. What is the definitive name we want for the inviteLists/friendsLists/inviteGroups..? */}
       <div>{showFriendsLists && <InviteList />}</div>
-      <div className="rowFlex">
+      <div className="rowFlex space-between">
         <p>
           {showFriendsOverview && "Friends"}
           {showAllFriends && "All Your Friends"}
           {showFriendsPending && "Friendship Requests"}
         </p>
-        <button className="btn btn-outline-primary" onClick={() => toggleFriendsOverview()}>
+        <button className="btn btn-outline-primary toggleFriendsOverview" onClick={() => toggleFriendsOverview()}>
           {showFriendsOverview ? "Show All Friends" : "Back to abridged view"}
         </button>
       </div>

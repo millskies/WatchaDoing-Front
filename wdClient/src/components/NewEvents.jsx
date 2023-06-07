@@ -33,7 +33,7 @@ export default function NewEvents() {
     
     {!loading && newEvents.length == 0 && <p>No events yet</p>}
 
-    {!loading && newEvents.map(event => <div className='new-event' key={event._id}>
+    {!loading && newEvents && newEvents.map(event => <div className='new-event' key={event._id}>
         <h2>{event.title}</h2>
         <p>{event.description}</p>
         <Link to={`/events/${event._id}`}>More details</Link>
