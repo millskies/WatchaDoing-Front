@@ -13,8 +13,9 @@ export default function CreateEvent() {
   //State variables 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [dateTime, setDateTime] = useState('')
+  // const [date, setDate] = useState('');
+  // const [time, setTime] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [location, setLocation] = useState('');
@@ -29,7 +30,7 @@ export default function CreateEvent() {
   const submitHandler = (e) => {
     e.preventDefault();
     let coordinates = { lat, lng}
-    let dateTime = "check how to do this with luxon" //changeLater
+    console.log('########', coordinates, location)
     let newEvent = { 
       title, 
       creator: user.userId,
@@ -38,6 +39,7 @@ export default function CreateEvent() {
       location, 
       coordinates, 
       selectedItems };
+      
     axios.post(baseUrl + "/events/create", newEvent)
     .then((res) => {
       console.log("event created", res)
@@ -49,38 +51,32 @@ export default function CreateEvent() {
   };
 
   //Fetching user friends + invitelists to populate the dropdown and allow to select friends to invite
+
   useEffect(() => {
     axios.get(baseUrl + `/users/${username}`)
     .then(({data}) => {
       let friendsAndLists = [...data.friendsConfirmed, ...data.inviteLists]
-      setDropdownData(friendsAndLists)
+      setDropdownData(data.friendsConfirmed)
+      console.log('^^^^^^^^^^^^^^^^^^^^^^', friendsAndLists)
     })
     .catch((err) => {
       console.log(err);
-      // navigate("/404");
     });
+
+    // CONFIGURING GOOGLE MAPS API
+      const center = { lat: 50.064192, lng: -130.605469 };
+      // Create a bounding box with sides ~10km away from the center point
+        const defaultBounds = {
+          north: center.lat + 0.1,
+          south: center.lat - 0.1,
+          east: center.lng + 0.1,
+          west: center.lng - 0.1};
+    
+        const input = document.getElementById("location");
+          
+        // const autocomplete = new google.maps.places.Autocomplete(input, options);
+
   }, [])
-
-
-// CONFIGURING GOOGLE MAPS API
-  const center = { lat: 50.064192, lng: -130.605469 };
-  // Create a bounding box with sides ~10km away from the center point
-    const defaultBounds = {
-      north: center.lat + 0.1,
-      south: center.lat - 0.1,
-      east: center.lng + 0.1,
-      west: center.lng - 0.1};
-
-    const input = document.getElementById("location");
-
-    const options = {
-      bounds: defaultBounds,
-      componentRestrictions: { country: "es" },
-      fields: ["address_components", "geometry", "icon", "name"],
-      strictBounds: false,
-      types: ["establishment", "address"]};
-      
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
 
   return (
     <>
@@ -88,31 +84,40 @@ export default function CreateEvent() {
       <form onSubmit={submitHandler}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">Title</label>
-          <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <input type="text" className="form-control" value={title} required onChange={(e) => setTitle(e.target.value)}/>
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description</label>
           <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="date" className="form-label">When?</label>
-          <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)}/>
+          <label htmlFor="dateTime" className="form-label">When?</label>
+          <input type="datetime-local" className="form-control" value={dateTime} onChange={(e) => setDateTime(e.target.value)}/>
         </div>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="date" className="form-label">What time?</label>
           <input type="time" className="form-control" value={time} onChange={(e) => setTime(e.target.value)}/>
-        </div>
+        </div> */}
 
 {/* Select location, using Google places API */}
 
         <div className="mb-3">
           <label htmlFor="location" className="form-label">Where?</label>
 
-        <AutoComplete apiKey={'AIzaSyDs5I5np83v56WXBt2JMvkUJSx_BWZETQw'} onPlaceSelected={(place) =>
-        // setAddress(place );
-        // setLat(place.geometry.location.lat());
-        // setLng(place.geometry.location.lng());
-        console.log("address: ", place.formatted_address)} />
+        <AutoComplete apiKey={'AIzaSyDs5I5np83v56WXBt2JMvkUJSx_BWZETQw'} 
+        
+        options={{
+          componentRestrictions: { country: "es" },
+          fields: ["address_components", "geometry", "icon", "name"],
+          strictBounds: false,
+          types: ["establishment", "geocode"]}}
+
+        onPlaceSelected={(place) =>{
+        setLocation(place.formatted_address );
+        setLat(place.geometry.location.lat());
+        setLng(place.geometry.location.lng());
+        console.log("address: ", place)}}
+         />
 
           {/* <input id="loctation" type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)}/> */}
         </div>
@@ -132,11 +137,18 @@ export default function CreateEvent() {
           >Invite friends</button>
         <select className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           {dropdownData.map((item) => (
-        <option className="dropdown-item" key={item.id} onClick={() => handleItemSelected(item)}>
+        <option className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item._id)}>
           {item.username}
         </option>
       ))}
         </select>
+
+        <div className="mb-3 form-check">
+        <input type="checkbox" className="form-check-input" />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+          Invite all your friends
+          </label>
+        </div>
 
       {/* checkbox to allow invited to invite their friends */}
         </div>
