@@ -21,7 +21,7 @@ export default function MyEvents() {
     // Fetch events from the backend API
     axios.get(baseUrl + `users/${username}`)
       .then((resp) => {
-        let userEvents = resp.data.eventsJoined;
+        let userEvents = resp.data.eventsCreated;
         console.log(userEvents);
         setMyEvents(userEvents);
       })
