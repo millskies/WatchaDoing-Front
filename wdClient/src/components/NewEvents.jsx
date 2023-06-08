@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function NewEvents() {
   const [loadingNewEvents, setLoadingNewEvents] = useState(true);
-  const [newEvents, setNewEvents] = useState([]);
+  const [newEvents, setNewEvents] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [joinedEvents, setJoinedEvents] = useState([]);
   const { isLoggedIn, user, loading, baseUrl, getHeaders } = useContext(authContext);
@@ -26,6 +26,9 @@ useEffect(()=>{
       setLoadingNewEvents(false)
       console.log('&&&&&&&&data.eventsPending', data.eventsPending)
     })
+    .then(()=>{
+      console.log("newEvents:", newEvents)
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -34,7 +37,7 @@ useEffect(()=>{
 
 //------------- FUNCTIONS FOR BUTTONS --------------------
   const joinEvent = (eventId)=>{
-    console.log("*************", eventId)
+    console.log("********fdf*****", eventId)
     axios.post(baseUrl + "/events/" + eventId + "/accept", {}, getHeaders())
     .then(({data}) => {
       setJoinedEvents(prevJoinedEvents => [...prevJoinedEvents, eventId])
@@ -72,9 +75,9 @@ useEffect(()=>{
     <h3>New events</h3>
     {/* {loadingNewEvents && <p className="fa-solid fa-lemon fa-shake"></p>} */}
     
-    {!loading && newEvents.length == 0 && <p>No events yet</p>}
+    {!loadingNewEvents && newEvents.length == 0 && <p>No events yet</p>}
 
-    {!loading && newEvents.map(event => <div className='new-event' key={event._id}>
+    {newEvents && newEvents.map((event, k) => <div className='new-event' key={event._id, k}>
         <h4>{event.title}</h4>
         <p>{event.description}</p>
         <p>{event.location}</p>
