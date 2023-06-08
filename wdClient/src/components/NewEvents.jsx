@@ -11,10 +11,11 @@ export default function NewEvents() {
   const [currentUser, setCurrentUser] = useState({});
   const [joinedEvents, setJoinedEvents] = useState([]);
   const { isLoggedIn, user, loading, baseUrl, getHeaders } = useContext(authContext);
+  const [updateTrigger, setUpdateTrigger] = useState(false);
 
 useEffect(()=>{
-  console.log('-----------', newEvents)
-  console.log('-----------', currentUser)
+  // console.log('---LOCATION--------', newEvents[0].creator)
+  console.log('-----------NewEvents:', newEvents)
 }, [newEvents])
 
   useEffect(()=>{
@@ -23,7 +24,7 @@ useEffect(()=>{
       setCurrentUser(data);
       setNewEvents(data.eventsPending)
       setLoadingNewEvents(false)
-      console.log('&&&&&&&&', data.eventsPending)
+      console.log('&&&&&&&&data.eventsPending', data.eventsPending)
     })
     .catch((err) => {
       console.log(err);
@@ -56,15 +57,16 @@ useEffect(()=>{
   const rejectEvent = (eventId)=>{
     axios.post(baseUrl + "/events/" + eventId + "/reject", {}, getHeaders())
     .then(({data}) => {
-      setNewEvents(prevNewEvents => prevNewEvents.filter(id => id !== eventId))
-      console.log('{{{{{{{{{{{', newEvents)
+      let newArray = [...newEvents]
+      setNewEvents(newArray.filter(event => event._id !== eventId))
+      setUpdateTrigger(!updateTrigger);
     })
     .catch((err) => {
       console.log(err);
     });
   }
 
-
+//-------------------------- RETURN ------------------------------
   return (
     <div className="NewEvents">
     <h3>New events</h3>
@@ -76,7 +78,7 @@ useEffect(()=>{
         <h4>{event.title}</h4>
         <p>{event.description}</p>
         <p>{event.location}</p>
-        <p>{event.dateTime}</p>
+        <p>{ new Date(event.dateTime).toLocaleString()}</p>
 
         {/* ------- Button to either join or unjoin ---------- */}
         <Link to={`/events/${event._id}`}>More details</Link>

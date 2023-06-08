@@ -14,8 +14,14 @@
     background-color: rgb(239, 239, 212);
 }
 
-#FriendsPending img {
-    width: 40px
+#FriendsPending img,
+.friendIcon {
+    height: 40px;
+    max-width: 50px
+}
+
+#FriendsPending p {
+    margin: 0;
 }
 
 #MyEvents {
@@ -23,7 +29,7 @@
     height: 150px;
 }
 
-#Friends .rowFlex button {
+.toggleFriendsOverview {
     width: 200px
 }
 
@@ -35,6 +41,11 @@
 
 .rowFlex {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.space-between {
     justify-content: space-between;
 }
 
@@ -45,3 +56,40 @@
 #welcome {
     padding-right: 30px
 }
+
+#FriendsOverview,
+#FriendsAll,
+.inviteUsers {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inviteUsers {}
+
+.fewFriends img,
+.friend img,
+.inviteUsers img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fewFriends,
+.friend,
+.inviteUser {
+    padding: 10px 3px
+}
+
+.friend {
+    display: flex;
+    flex-direction: column;
+}
+
+.lists {
+    padding: 10px
+}
+
+.list p {
+    margin: 0
+}
+

@@ -4,18 +4,16 @@ import { useParams } from "react-router-dom";
 import { authContext } from "../contexts/auth.context";
 import AutoComplete from "react-google-autocomplete";
 
-export default function CreateEvent() {
+export default function CreateEvent({toggleCreateEvent}) {
   
   const {username} = useParams();
-  const {baseUrl, user} = useContext(authContext);
+  const {baseUrl, user, getHeaders} = useContext(authContext);
 
   
   //State variables 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dateTime, setDateTime] = useState('')
-  // const [date, setDate] = useState('');
-  // const [time, setTime] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [location, setLocation] = useState('');
@@ -37,7 +35,7 @@ const handleItemSelected = (item) => {
     };
 
 
-  //------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
+//------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
   const submitHandler = (e) => {
     e.preventDefault();
     let coordinates = { lat, lng}
@@ -53,7 +51,8 @@ const handleItemSelected = (item) => {
       
     axios.post(baseUrl + "/events/create", newEvent)
     .then((res) => {
-      console.log("event created", res)
+      console.log("event created", res);
+      toggleCreateEvent();
     })
     .catch((err) => {
       console.log(err);
@@ -143,12 +142,20 @@ const handleItemSelected = (item) => {
           >Invite friends</button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {dropdownData.map((item) => (
-              <button className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
+              <button type="button" className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
                 {item.username}
               </button>
             ))}
           </div>
         </div>
+
+        {/* --------------display all selected users NOT WORKING< changeLater--------------- */}
+        {/* <div>
+          {selectedItems.map((user) => (
+          <p key={user._id}>{user.username}</p>
+           ))}
+        </div> */}
+
 
 {/* ---------------- checkbox to invite to invite all friends ------------------ */}
         <div className="mb-3 form-check">

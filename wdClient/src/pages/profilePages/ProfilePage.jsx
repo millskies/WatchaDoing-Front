@@ -12,23 +12,15 @@ export default function ProfilePage() {
   // console.log("username: ", username)
   const navigate = useNavigate();
 
-  const [ownProfile, setOwnProfile] = useState(false); // changeLater
-  const [publicProfile, setPublicProfile] = useState(false);
   const [publicUserData, setPublicUserData] = useState({});
 
   useEffect(() => {
     if (loading) return;
-    console.log("@@@", user)
-      if (username == user.username) {
-        setOwnProfile(true);
-        setPublicProfile(false);
-      } else if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
+      if (username != user.username) { // Check if the username profile route we are trying to access belongs to a real user or should redirect to an error page.
         axios
           .get(baseUrl + "/users/" + username)
           .then(({data}) => {
             console.log("response: ", data);
-            setPublicProfile(true);
-            setOwnProfile(false);
             setPublicUserData(data);
           })
           .catch((err) => {
@@ -42,15 +34,15 @@ export default function ProfilePage() {
 
   return (
     <div>
-      {ownProfile && (
+      {!loading && (username == user.username) && (
         <div>
           <OwnProfilePage />
         </div>
       )}
 
-      {publicProfile && (
+      {!loading && (username != user.username) && publicUserData.username && (
         <div>
-          <PublicProfilePage publicUserData={publicUserData} />
+          <PublicProfilePage publicUserData={publicUserData}  />
         </div>
       )}
     </div>
