@@ -9,6 +9,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/profilePages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ErrorPage from "./pages/ErrorPage";
+import EventDetailPage from "./pages/EventDetailPage";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/logout" element={<LogoutPage/>} />
         <Route path="/:username" element={<ProfilePage/>}/>
         <Route path="/:username/edit" element={<EditProfilePage/>} />
+        <Route path="/events/:eventId" element={<EventDetailPage/>} />
         <Route path="/*" element={<ErrorPage/>} />
         <Route path="/404" element={<ErrorPage/>} />
       </Routes>      
