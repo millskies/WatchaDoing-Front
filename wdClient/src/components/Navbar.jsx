@@ -7,9 +7,9 @@ export default function Navbar() {
   const { username } = user;
 
   return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">WatchaDoin?</Link>
+          <Link className="navbar-brand" to="/"><img src="../../public/logo.png"/></Link>
           <button
             className="navbar-toggler"
             type="button"

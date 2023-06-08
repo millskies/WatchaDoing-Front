@@ -20,12 +20,18 @@ export default function OwnProfilePage() {
   return (
     <div id="OwnProfile">
       <Navbar />
-      <div className="header">
-        <h3 id="welcome">Welcome, {username}!</h3>
+      <div className="own-profile">
+      <div className="header image-container">
+        <img src={currentUser.picture}/>
         <Link to={`/${username}/edit`}>Edit Profile</Link>
-      </div>
+        <div className="friends">
       <Friends userData={currentUser} />
-      {!loadingUserInfo && <MyEvents events={currentUser.eventsCreated}/>}
+      </div>
+      </div>
+      <div className="my-events">
+      {!loadingUserInfo && <MyEvents events={currentUser.eventsCreated} />}
+      </div>
+      </div>
     </div>
   );
 }

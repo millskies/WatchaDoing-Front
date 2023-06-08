@@ -66,7 +66,7 @@ export default function NewEvents() {
 //-------------------------- RETURN ------------------------------
   return (
     <div className="NewEvents">
-    <h3>New events</h3>
+    
     {/* {loadingNewEvents && <p className="fa-solid fa-lemon fa-shake"></p>} */}
     
     {!loadingNewEvents && newEvents.length == 0 && <p>No events yet</p>}

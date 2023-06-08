@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 
 const authContext = createContext();
 
-const baseUrl = import.meta.env.VITE_API_URL;
+const baseUrl = "http://localhost:5005";
 
 function AuthProviderWrapper({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //false
