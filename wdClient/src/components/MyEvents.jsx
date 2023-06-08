@@ -6,11 +6,14 @@ import axios from "axios";
 import { authContext } from "../contexts/auth.context";
 import { useParams } from "react-router-dom";
 
-export default function MyEvents({events}) {
-  const { user, baseUrl, loading, getUserInfo } = useContext(authContext);
+export default function MyEvents({events, eventInfo}) {
+  const { user, baseUrl, loading, getUserInfo, getHeaders } = useContext(authContext);
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [myEvents, setMyEvents] = useState([]);
   const {username} = useParams();
+  const [error, setError] = useState("");
+  
+
 
   function toggleCreateEvent() {
     showCreateEvent ? setShowCreateEvent(false) : setShowCreateEvent(true);
@@ -30,7 +33,15 @@ export default function MyEvents({events}) {
   //       console.error("Error fetching events:", error);
   //     });
   // }, []); 
-  
+
+  const deleteHandler = (eventInfo) => {
+    axios
+      .post(baseUrl + `/events/${eventInfo._id}/delete`, eventInfo, getHeaders())
+      .then((resp) => {
+        console.log("evento eliminado:", resp);
+      })
+      .catch((err) => setError("Could not finish the process, try again", err));
+  };
 
   return (
     <div id="MyEvents">
@@ -60,13 +71,22 @@ export default function MyEvents({events}) {
               </button>
       <EventUpdate eventInfo={event} /> 
               {/* <img className="card-text" src={event.icon} alt="event icon"/> */}
-              <p className="card-text">{event.creator}</p>
               <p className="card-text">{event.description}</p>
               <p className="card-text">{event.location}</p>
-              <p className="card-text">{event.dateTime}</p>
+              <p className="card-text">{ new Date(event.dateTime).toLocaleString()}</p>
               <p className="card-text">{event.confirmedJoiners}</p>
-
             </div>
+            <div>
+            <form>
+            <button
+              type="submit"
+              onSubmit={deleteHandler}
+              className="btn btn-danger"
+            >
+              Delete event
+            </button>
+            </form>
+          </div>
           </div>
         );
       })}

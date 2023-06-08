@@ -1,3 +1,10 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+.modal{
+  z-index: 1000000000;
+}
+
+.pac-container{
+  z-index: 2000000000;
+}
