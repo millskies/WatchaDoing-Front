@@ -8,7 +8,6 @@ export default function CreateEvent({toggleCreateEvent}) {
   
   const {username} = useParams();
   const {baseUrl, user, getHeaders} = useContext(authContext);
-
   
   //State variables 
   const [title, setTitle] = useState('');
@@ -17,28 +16,30 @@ export default function CreateEvent({toggleCreateEvent}) {
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [location, setLocation] = useState('');
-  const [dropdownData, setDropdownData] = useState([]);
+  const [dropdownDataFriends, setDropdownDataFriends] = useState([]);
+  const [dropdownDataLists, setDropdownDataLists] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [inviteAll, setInviteAll] = useState(false);
 
- useEffect(()=>{
-   console.log('-----Selected Items:', selectedItems)
- },[selectedItems])
+  const uniqueSelectedItems = Array.from(new Set(selectedItems.map((user) => user._id))).map((id) =>
+  selectedItems.find((user) => user._id === id)
+);
 
- useEffect(()=>{
-  if(inviteAll) setSelectedItems(dropdownData)
-},[inviteAll])
 
-const handleItemSelected = (item) => {
-    setSelectedItems([...selectedItems, item._id]);
+const handleItemSelectedFriends = (item) => {
+ setSelectedItems([...selectedItems, item]);
+ setDropdownDataFriends(dropdownDataFriends.filter((option) => option._id !== item._id));
     };
 
+const handleItemSelectedLists = (item) => {
+    setSelectedItems([...selectedItems, ...item.users]);
+    setDropdownDataLists(dropdownDataLists.filter((option) => option._id !== item._id));
+     };
 
 //------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
   const submitHandler = (e) => {
     e.preventDefault();
     let coordinates = { lat, lng}
-    let pendingJoiners = [...new Set(selectedItems)]
     let newEvent = { 
       title, 
       creator: user.userId,
@@ -46,7 +47,7 @@ const handleItemSelected = (item) => {
       dateTime, 
       location, 
       coordinates, 
-      pendingJoiners};
+      pendingJoiners: uniqueSelectedItems};
       
     axios.post(baseUrl + "/events/create", newEvent)
     .then((res) => {
@@ -60,16 +61,13 @@ const handleItemSelected = (item) => {
 
 //------------------ CREATE NOTIFICATION (maybe)---------------------
 
-
-
-  //Fetching user friends + invitelists to populate the dropdown and allow to select friends to invite
+//Fetching user friends + invitelists to populate the dropdown and allow to select friends to invite
   useEffect(() => {
     axios.get(baseUrl + `/users/${username}`)
     .then(({data}) => {
-      let friendsAndLists = [...data.friendsConfirmed, ...data.inviteLists]
-      setDropdownData(data.friendsConfirmed)
-      console.log('############', friendsAndLists)
-    })
+      setDropdownDataFriends(data.friendsConfirmed)
+      setDropdownDataLists(data.inviteLists)
+      })
     .catch((err) => {
       console.log(err);
     });
@@ -130,7 +128,8 @@ const handleItemSelected = (item) => {
           <input type="text" className="form-control" onChange={(e) => setTitle(e.target.value)}/>
         </div> */}
 
-        {/* Dropdown to select friends & lists to invite */}
+        {/* Dropdown to select friends to invite */}
+
         <div className="dropdown">
           <button
             className="btn btn-secondary dropdown-toggle"
@@ -140,28 +139,42 @@ const handleItemSelected = (item) => {
             aria-expanded="false"
           >Invite friends</button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {dropdownData.map((item) => (
-              <button type="button" className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
+            {dropdownDataFriends.map((item) => (
+              <button type="button" className="dropdown-item" key={item._id} onClick={() => handleItemSelectedFriends(item)}>
                 {item.username}
               </button>
             ))}
           </div>
         </div>
 
-
-        <div className="col-6 dropdown">
-          <label htmlFor="users">Invite Friends:</label>
-          <Select defaultValue={value} onChange={setValue} options={friendsAndLists} isMulti={true} />
+        {/* Dropdown to select friends lists to invite */}
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >Invite by circles</button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {dropdownDataLists.map((item) => (
+              <button type="button" className="dropdown-item" key={item._id} onClick={() => handleItemSelectedLists(item)}>
+                {item.title}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* --------------display all selected users NOT WORKING< changeLater--------------- */}
-        <div>
-          {selectedItems.map((user) => (
-           <p key={user._id}>{user.username}</p>))}
-        </div>
+
+{/* -------------- display all selected users --------------- */}
+      <div>
+      <p>selected friends:</p>
+        {uniqueSelectedItems.map((user) => (
+        <p key={user._id}>{user.username}</p>))}
+      </div>
 
 
-{/* ---------------- checkbox to invite to invite all friends ------------------ */}
+{/* --------------- checkbox to invite to invite all friends ----------------- */}
         <div className="mb-3 form-check">
         <input type="checkbox" className="form-check-input" 
         onChange={() => setInviteAll(!inviteAll)} />
@@ -170,14 +183,15 @@ const handleItemSelected = (item) => {
           </label>
         </div>
 
-{/* ----------------- checkbox to allow invited to invite their friends ----------------- */}
-        <div className="mb-3 form-check">
+{/*--------------- checkbox to allow invited to invite their friends ---------------*/}
+        {/* <div className="mb-3 form-check">
           <input type="checkbox" className="form-check-input" />
           <label className="form-check-label" htmlFor="exampleCheck1">
             Allow your friends to share this event
           </label>
-        </div>
-        <button type="submit" className="btn btn-primary">Create</button>
+        </div>*/}
+
+        <button type="submit" className="btn btn-primary">Create</button> 
       </form>
     </>
   );
