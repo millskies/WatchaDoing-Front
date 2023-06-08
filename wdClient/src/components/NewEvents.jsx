@@ -13,18 +13,12 @@ export default function NewEvents() {
   const { isLoggedIn, user, loading, baseUrl, getHeaders } = useContext(authContext);
   const [updateTrigger, setUpdateTrigger] = useState(false);
 
-useEffect(()=>{
-  // console.log('---LOCATION--------', newEvents[0].creator)
-  console.log('-----------NewEvents:', newEvents)
-}, [newEvents])
-
   useEffect(()=>{
     axios.get(baseUrl + "/users/" + user.username)
     .then(({data}) => {
       setCurrentUser(data);
       setNewEvents(data.eventsPending)
       setLoadingNewEvents(false)
-      console.log('&&&&&&&&data.eventsPending', data.eventsPending)
     })
     .catch((err) => {
       console.log(err);
