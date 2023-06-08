@@ -7,15 +7,13 @@ import AutoComplete from "react-google-autocomplete";
 export default function CreateEvent() {
   
   const {username} = useParams();
-  const {baseUrl, user} = useContext(authContext);
+  const {baseUrl, user, getHeaders} = useContext(authContext);
 
   
   //State variables 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dateTime, setDateTime] = useState('')
-  // const [date, setDate] = useState('');
-  // const [time, setTime] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [location, setLocation] = useState('');
@@ -37,7 +35,7 @@ const handleItemSelected = (item) => {
     };
 
 
-  //------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
+//------------ CREATING EVENT, USING BE /EVENT/CREATE ROUTE -------------
   const submitHandler = (e) => {
     e.preventDefault();
     let coordinates = { lat, lng}
@@ -143,12 +141,20 @@ const handleItemSelected = (item) => {
           >Invite friends</button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {dropdownData.map((item) => (
-              <button className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
+              <button type="button" className="dropdown-item" key={item._id} onClick={() => handleItemSelected(item)}>
                 {item.username}
               </button>
             ))}
           </div>
         </div>
+
+        {/* --------------display all selected users NOT WORKING< changeLater--------------- */}
+        {/* <div>
+          {selectedItems.map((user) => (
+          <p key={user._id}>{user.username}</p>
+           ))}
+        </div> */}
+
 
 {/* ---------------- checkbox to invite to invite all friends ------------------ */}
         <div className="mb-3 form-check">
