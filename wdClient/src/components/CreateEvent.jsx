@@ -22,11 +22,10 @@ export default function CreateEvent({toggleCreateEvent}) {
   const [inviteAll, setInviteAll] = useState(false);
 
  useEffect(()=>{
-   console.log('#########', selectedItems)
+   console.log('-----Selected Items:', selectedItems)
  },[selectedItems])
 
  useEffect(()=>{
-  console.log('##########', inviteAll)
   if(inviteAll) setSelectedItems(dropdownData)
 },[inviteAll])
 
@@ -120,7 +119,7 @@ const handleItemSelected = (item) => {
           types: ["establishment", "geocode"]}}
 
         onPlaceSelected={(place) =>{
-        setLocation(place.formatted_address );
+        setLocation(place.name );
         setLat(place.geometry.location.lat());
         setLng(place.geometry.location.lng());
         console.log("address: ", place)}}/>
@@ -149,12 +148,17 @@ const handleItemSelected = (item) => {
           </div>
         </div>
 
+
+        <div className="col-6 dropdown">
+          <label htmlFor="users">Invite Friends:</label>
+          <Select defaultValue={value} onChange={setValue} options={friendsAndLists} isMulti={true} />
+        </div>
+
         {/* --------------display all selected users NOT WORKING< changeLater--------------- */}
-        {/* <div>
+        <div>
           {selectedItems.map((user) => (
-          <p key={user._id}>{user.username}</p>
-           ))}
-        </div> */}
+           <p key={user._id}>{user.username}</p>))}
+        </div>
 
 
 {/* ---------------- checkbox to invite to invite all friends ------------------ */}
