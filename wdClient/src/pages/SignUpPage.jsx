@@ -11,31 +11,10 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState('');
-  const [picture, setPicture] = useState("");
   const [error, setError] = useState('');
-  const [loadingPic, setLoadingPic] = useState(false);
   const navigate = useNavigate();
   const {isLoggedIn, loading, baseUrl} = useContext(authContext);
 
-  const handleFileUpload = (e) => {
-    // console.log("The file to be uploaded is: ", e.target.files[0]);
-    setLoadingPic(true)
-    const uploadData = new FormData(); //FormData sirve para simular el objeto que recibiríamos de un formulario pero sin necesidad de tener un formulario.
-
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new movie in '/api/movies' POST route
-    uploadData.append("picture", e.target.files[0]);
-    setPicture("uploading");
-    //service //call to axios
-    axios.post(baseUrl + "/auth/upload", uploadData)
-      .then((response) => {
-        console.log("response is: ", response);
-        // response carries "fileUrl" which we can use to update the state
-        setPicture(response.data.fileUrl);
-        setLoadingPic(false)
-      })
-      .catch((err) => console.log("Error while uploading the file: ", err));
-  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -53,17 +32,15 @@ export default function SignUpPage() {
       return;
     }
 
-    const user = {username, email, password, passwordRepeat, picture};
+    const user = {username, email, password, passwordRepeat};
     console.log("useeeeeer: ", user)
-    if(!loadingPic){
+    
     axios.post(baseUrl + '/auth/signup', user)
     .then(resp => {
       console.log(resp);
       navigate('/login');
     })
     .catch(err => setError('Could not finish the process, try again', err))
-
-  }
   }
 
   if(!loading && isLoggedIn) return <Navigate to="/dashboard" />
@@ -92,11 +69,7 @@ export default function SignUpPage() {
             <input id="passwordRepeat" type="password" name="passwordRepeat" placeholder="Repeat your password" value={passwordRepeat} onChange={(e)=>setPasswordRepeat(e.target.value)}/>
           </div>
           
-          <label>Image:</label>
-          <input type="file" onChange={(e) => handleFileUpload(e)} />
-          {loadingPic && <p>Image is loading.....</p>}
-
-          <button type="submit" className="signup" disabled={loadingPic}>
+          <button type="submit" className="signup">
             SIGN UP
           </button>
         </form>
