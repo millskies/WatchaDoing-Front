@@ -7,7 +7,7 @@ import AutoComplete from "react-google-autocomplete";
 export default function CreateEvent({toggleCreateEvent}) {
   
   const {username} = useParams();
-  const {baseUrl, user, getHeaders} = useContext(authContext);
+  const {baseUrl, user, getHeaders, getUserInfo} = useContext(authContext);
   
   //State variables 
   const [title, setTitle] = useState('');
@@ -53,6 +53,7 @@ const handleItemSelectedLists = (item) => {
     .then((res) => {
       console.log("event created", res);
       toggleCreateEvent();
+      getUserInfo()
     })
     .catch((err) => {
       console.log(err);
