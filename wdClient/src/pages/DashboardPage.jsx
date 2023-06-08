@@ -37,11 +37,11 @@ export default function DashboardPage() {
       </header>
       <div className="dashboardComponents">
         <div className="row1">
-          <h2>Upcomig events</h2>
+          <h2>Upcoming events</h2>
           <ConfirmedEvents />
         </div>
         <div className="row2">
-        <h2>Events to be joined</h2>
+        <h2>Possible plans</h2>
         <hr className="events"></hr>
           <NewEvents />
         </div>
