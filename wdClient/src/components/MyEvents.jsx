@@ -18,10 +18,10 @@ export default function MyEvents({ events }) {
 
   function deleteHandler(eventInfo) {
     axios
-      .post(baseUrl + `/events/${eventInfo._id}/delete`, getHeaders())
+      .post(baseUrl + `/events/${eventInfo._id}/delete`, {}, getHeaders())
       .then((resp) => {
         console.log("evento eliminado:", resp);
-        // getUserInfo();
+        getUserInfo();
       })
       .catch((err) => console.log(err) /* setError("Could not finish the process, try again", err) */);
   }
