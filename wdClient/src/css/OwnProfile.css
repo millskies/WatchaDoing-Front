@@ -58,20 +58,25 @@
 }
 
 #FriendsOverview,
-#FriendsAll {
+#FriendsAll,
+.inviteUsers {
     display: flex;
     flex-wrap: wrap;
 }
 
+.inviteUsers {}
+
 .fewFriends img,
-.friend img {
+.friend img,
+.inviteUsers img {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
 .fewFriends,
-.friend {
+.friend,
+.inviteUser {
     padding: 10px 3px
 }
 
@@ -79,3 +84,12 @@
     display: flex;
     flex-direction: column;
 }
+
+.lists {
+    padding: 10px
+}
+
+.list p {
+    margin: 0
+}
+

@@ -40,7 +40,7 @@ export default function Friends({userData}) {
   return (
     <div id="Friends" className="leftRow">
       <button className="btn btn-outline-primary" onClick={() => toggleFriendsLists()}>
-        FriendsLists!
+        Friends Circles
       </button>
       {/* changeLater. What is the definitive name we want for the inviteLists/friendsLists/inviteGroups..? */}
       <div>{showFriendsLists && <InviteList />}</div>
