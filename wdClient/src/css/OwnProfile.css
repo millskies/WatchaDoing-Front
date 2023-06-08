@@ -1,95 +1,147 @@
 #FriendsAll {
-    background-color: rgb(255, 193, 233);
+  background-color: rgb(255, 193, 233);
 }
 
 #FriendsOverview {
-    background-color: rgb(250, 255, 185);
+  background-color: rgb(250, 255, 185);
 }
 
 #InviteList {
-    background-color: rgb(213, 255, 174);
+  background-color: rgb(213, 255, 174);
 }
 
 #FriendsPending {
-    background-color: rgb(239, 239, 212);
+  background-color: rgb(239, 239, 212);
 }
 
 #FriendsPending img,
 .friendIcon {
-    height: 40px;
-    max-width: 50px
+  height: 40px;
+  max-width: 50px;
+}
+
+.mediumSizeAvatar {
+  height: 100px;
+  max-width: 120px;
 }
 
 #FriendsPending p {
-    margin: 0;
+  margin: 0;
 }
 
 #MyEvents {
-    background-color: antiquewhite;
-    height: 150px;
+  background-color: antiquewhite;
+  height: 150px;
 }
 
 .toggleFriendsOverview {
-    width: 200px
+  width: 200px;
 }
 
 #OwnProfile .leftRow {
-    display: flex;
-    flex-direction: column;
-    width: 30%; /* changeLater: in mobile view it should occupy the whole width */
+  display: flex;
+  flex-direction: column;
+  width: 30%; /* changeLater: in mobile view it should occupy the whole width */
 }
 
 .rowFlex {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .space-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 #OwnProfile .header {
-    display: flex;
+  display: flex;
 }
 
 #welcome {
-    padding-right: 30px
+  padding-right: 30px;
 }
 
 #FriendsOverview,
 #FriendsAll,
 .inviteUsers {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
-
-.inviteUsers {}
 
 .fewFriends img,
 .friend img,
 .inviteUsers img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fewFriends,
 .friend,
 .inviteUser {
-    padding: 10px 3px
+  padding: 10px 3px;
 }
 
 .friend {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .lists {
-    padding: 10px
+  padding: 10px;
 }
 
 .list p {
-    margin: 0
+  margin: 0;
+}
+
+#map {
+  height: 300px; /* The height is 400 pixels */
+  width: 90%; /* The width is the width of the web page */
+}
+
+/* EVENT DETAILS */
+.eventCreator,
+.eventBody,
+.inviteUsers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: rgba(255, 125, 125, 0.5);
+    margin: 2px;
+}
+
+.inviteUsers {
+    padding: 0;
+    justify-content: center;
+}
+
+.inviteUsers p {
+    align-self: start;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.eventMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eventCreator {    
+    width: 27vw
+}
+
+.eventBody {
+    width: 68vw; /* changeLater */
+    justify-content: center;
+}
+
+.eventTitle {
+    font-size: 25px;
+    font-weight: bold;
 }
 

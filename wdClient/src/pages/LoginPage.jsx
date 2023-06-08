@@ -23,7 +23,7 @@ export default function LoginPage() {
       setError("error: fields missing")
       return;
     } 
-    axios.post(baseUrl + '/login', {username, password})
+    axios.post(baseUrl + '/auth/login', {username, password})
     .then(({data}) => {
         let jwt = data.authToken;
         localStorage.setItem('authToken', jwt);
