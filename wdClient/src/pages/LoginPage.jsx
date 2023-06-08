@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import Alert from '../components/Alert';
 import NavbarLoggedOut from "../components/NavbarLoggedOut";
-const baseUrl = 'http://localhost:5005/auth'
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
