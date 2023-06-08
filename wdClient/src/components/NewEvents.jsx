@@ -15,7 +15,7 @@ export default function NewEvents() {
 
 useEffect(()=>{
   // console.log('---LOCATION--------', newEvents[0].creator)
-  console.log('-----------', newEvents)
+  console.log('-----------NewEvents:', newEvents)
 }, [newEvents])
 
   useEffect(()=>{
@@ -24,7 +24,7 @@ useEffect(()=>{
       setCurrentUser(data);
       setNewEvents(data.eventsPending)
       setLoadingNewEvents(false)
-      console.log('&&&&&&&&', data.eventsPending)
+      console.log('&&&&&&&&data.eventsPending', data.eventsPending)
     })
     .catch((err) => {
       console.log(err);
