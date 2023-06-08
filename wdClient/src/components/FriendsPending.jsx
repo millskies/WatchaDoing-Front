@@ -1,5 +1,6 @@
 import axios from "axios";
 import { authContext } from "../contexts/auth.context";
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 export default function FriendsPending({ userData }) {
@@ -19,11 +20,13 @@ export default function FriendsPending({ userData }) {
       {userData.friendsPending.map((friendRequest) => {
         return (
           <div key={friendRequest._id}>
-            <img src={friendRequest.picture} alt={friendRequest.username} />
-            {friendRequest.username}
-            <button onClick={() => acceptFriend(friendRequest._id)} type="submit" className="btn btn-success">
-              Accept
-            </button>
+            <div className="rowFlex">
+              <img src={friendRequest.picture} alt={friendRequest.username} />
+              <Link onClick={() => {window.location.href=`/${friendRequest.username}`}}> {friendRequest.username} </Link>
+              <button onClick={() => acceptFriend(friendRequest._id)} type="submit" className="btn btn-success">
+                Accept
+              </button>
+            </div>
           </div>
         );
       })}

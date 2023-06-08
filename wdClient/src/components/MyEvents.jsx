@@ -45,7 +45,7 @@ export default function MyEvents({events}) {
         {!showCreateEvent ? <img style={{ width: "20px" }} src="plus.png" alt="create event" /> : <img style={{ width: "20px" }} src="minus.png" alt="roll up create event" />}
       </button>
 
-      {showCreateEvent && <CreateEvent />}
+      {showCreateEvent && <CreateEvent toggleCreateEvent={toggleCreateEvent}/>}
 
 
       {events && events.map((event, k) => {

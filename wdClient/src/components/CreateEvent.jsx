@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { authContext } from "../contexts/auth.context";
 import AutoComplete from "react-google-autocomplete";
 
-export default function CreateEvent() {
+export default function CreateEvent({toggleCreateEvent}) {
   
   const {username} = useParams();
   const {baseUrl, user, getHeaders} = useContext(authContext);
@@ -51,7 +51,8 @@ const handleItemSelected = (item) => {
       
     axios.post(baseUrl + "/events/create", newEvent)
     .then((res) => {
-      console.log("event created", res)
+      console.log("event created", res);
+      toggleCreateEvent();
     })
     .catch((err) => {
       console.log(err);
