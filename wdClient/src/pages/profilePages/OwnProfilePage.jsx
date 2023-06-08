@@ -20,6 +20,7 @@ export default function OwnProfilePage() {
   return (
     <div id="OwnProfile">
       <Navbar />
+      <hr></hr>
       <div className="own-profile">
       <div className="header image-container">
         <img src={currentUser.picture}/>
