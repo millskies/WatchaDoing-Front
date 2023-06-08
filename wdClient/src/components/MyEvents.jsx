@@ -80,7 +80,10 @@ export default function MyEvents({events, eventInfo}) {
             <form>
             <button
               type="submit"
-              onSubmit={deleteHandler}
+              onSubmit={(e) => {
+                  e.preventDefault();
+                  deleteHandler(event);
+                }}
               className="btn btn-danger"
             >
               Delete event
