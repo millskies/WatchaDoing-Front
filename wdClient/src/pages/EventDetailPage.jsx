@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authContext } from "../contexts/auth.context";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import GoogleMapReact from "google-map-react";
 
@@ -80,6 +80,7 @@ export default function EventDetailPage() {
                 );
               })}
             </div>
+
             {GoogleMap(event.coordinates)}
           </div>
         </div>
