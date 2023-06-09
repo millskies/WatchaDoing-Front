@@ -78,11 +78,14 @@ export default function NewEvents() {
         <p>{ new Date(event.dateTime).toLocaleString()}</p>
 
         {/* ------- Button to either join or unjoin ---------- */}
-        <Link to={`/events/${event._id}`}>More details</Link>
-        {joinedEvents.includes(event._id) ? <button type="button" className="unjoin" onClick={ () => unJoinEvent(event._id)}>Unjoin</button> : <> <button type="button" className="btn join" onClick={ () => joinEvent(event._id)}>Join</button>
-        <button type="button" className="reject" onClick={() => rejectEvent(event._id)}>Reject</button>
-        <hr className="newevents"></hr></>}
+        {joinedEvents.includes(event._id) ? 
+        <button type="button" className="unjoin" onClick={ () => unJoinEvent(event._id)}>Unjoin</button> : <> <button type="button" className="join" onClick={ () => joinEvent(event._id)}>Join</button>
+        <button type="button" className="reject" onClick={() => rejectEvent(event._id)}>Reject</button></>}
 
+        <div className="moreinfo">
+        <Link to={`/events/${event._id}`}>More details</Link>
+        </div>
+        <hr className="newevents"></hr>
         {/* ----- Button to reject event and make it disappear from the list ------- */}
         
       </div>)}

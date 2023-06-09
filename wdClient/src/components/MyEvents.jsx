@@ -1,16 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import CreateEvent from "./CreateEvent";
 // import EventDetail from "./EventDetail";
 import EventUpdate from "./EventUpdate";
 import axios from "axios";
 import { authContext } from "../contexts/auth.context";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 export default function MyEvents({ events }) {
-  const { user, baseUrl, loading, getUserInfo, getHeaders } = useContext(authContext);
+  const { baseUrl, getHeaders } = useContext(authContext);
   const [showCreateEvent, setShowCreateEvent] = useState(false);
-  const { username } = useParams();
-  const [error, setError] = useState("");
+  // const { username } = useParams();
+  // const [error, setError] = useState("");
 
   function toggleCreateEvent() {
     showCreateEvent ? setShowCreateEvent(false) : setShowCreateEvent(true);
@@ -28,9 +28,11 @@ export default function MyEvents({ events }) {
 
   return (
     <div id="MyEvents">
-      <h4>Your events</h4>
+    <div className="create-event">
+      <h4>Events created by you</h4>
+
       <button
-        className="btn btn-outline-primary"
+        className="boton-create"
         onClick={(e) => {
           e.preventDefault();
           toggleCreateEvent();
@@ -38,19 +40,20 @@ export default function MyEvents({ events }) {
       >
         {!showCreateEvent ? <img style={{ width: "20px" }} src="plus.png" alt="create event" /> : <img style={{ width: "20px" }} src="minus.png" alt="roll up create event" />}
       </button>
+      </div>
+      <hr className="events"></hr>
 
       {showCreateEvent && <CreateEvent toggleCreateEvent={toggleCreateEvent} />}
-
       {events &&
-        events.map((event, k) => {
+        events.map((event) => {
           return (
             <div key={event._id} className="card" style={{ width: "25rem" }}>
               <div className="card-body">
-                <button type="button" className="btn btn-link">
+                <button type="button" className="event-title">
                   {event.title}
                 </button>
-                <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventUpdate">
-                  Edit
+                <button type="button" className="edit-button" data-bs-toggle="modal" data-bs-target="#eventUpdate">
+                <img src="../../public/edit.png"/>
                 </button>
                 <EventUpdate eventInfo={event} />
                 {/* <img className="card-text" src={event.icon} alt="event icon"/> */}
@@ -68,11 +71,13 @@ export default function MyEvents({ events }) {
                       console.log("fjjjjjjj",event)
                       deleteHandler(event);
                     }}
-                    className="btn btn-danger"
+                    className="delete"
                   >
-                    Delete event
+                    Delete
                   </button>
                 </form>
+                <hr className="newevents"></hr>
+
               </div>
             </div>
           );
