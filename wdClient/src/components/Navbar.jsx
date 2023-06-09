@@ -1,10 +1,49 @@
 import { Link } from "react-router-dom";
 import { authContext } from "../contexts/auth.context";
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
+import "../css/Navbar.css"
+import axios from "axios";
+
 
 export default function Navbar() {
-  const { user } = useContext(authContext);
+  const { user, baseUrl, loading, currentUser } = useContext(authContext);
   const { username } = user;
+
+  const [allUsers, setAllUsers] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [text, setText] = useState("");
+
+   //Get all users from database
+   useEffect(() => {{
+    axios.get(baseUrl + "/users/all")
+      .then(({data}) => {
+        setAllUsers(data.filter((user) => {
+          return (user.username != currentUser.username);
+            }))
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loading]);
+
+
+
+  useEffect(() => {
+    console.log('********allUsers: ', allUsers)
+    console.log('********Searchresults: ', searchResults)
+  }, [allUsers, searchResults])
+
+  //Filter for search bar
+  const formOnChangeHandle = (text) => {
+    let searchFilter= allUsers.filter((user) => {
+    return (user.username.toLowerCase().includes(text.toLowerCase()) );
+      })
+      setSearchResults(searchFilter);
+  };
+
+  useEffect(() => {
+    formOnChangeHandle(text)
+    console.log("")
+  }, [text]);
 
   return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,7 +68,11 @@ export default function Navbar() {
                   to={`/${username}`}
                 >Profile</Link>
               </li>
-              <li className="nav-item dropdown">
+              <li>
+              <Link className="nav-link active"
+                  aria-current="page" to="/logout">Sign out</Link>
+              </li>
+              {/* <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
                   id="navbarDropdown"
@@ -42,22 +85,37 @@ export default function Navbar() {
                     <Link className="link" to="/notifications">Notifications</Link>
                   </li>
                   <li>
-                  <Link className="link" to="/menu">Menu</Link>
-                  </li>
-                  <li>
                     <Link className="dropdown-item" to="/logout">Sign out</Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
-            <form className="d-flex">
+            <div className=" search-form">
+            <form  className="d-flex">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search users"
-                aria-label="Search"/>
-              <button className="btn btn-outline-success" type="submit">Search</button>
+                aria-label="Search"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                />
+              {/* <button className="btn btn-outline-success">X</button> */}
             </form>
+           
+            {searchResults.length === 0 || searchResults.length === allUsers.length && ""}
+            {searchResults.length > 0 && (
+             <ul className="" aria-labelledby="searchDropdown">
+              {searchResults.map((user) => (
+              <li className="dropdown-item" key={user._id}>
+              <img className="profilepicture" src={user.picture} alt={user.username}/>
+              <Link id="namelink" to={`/${user.username}`}>{user.username}</Link>
+              {/* <button className="add-friend-button">Add Friend</button> */}
+                  </li>
+                ))}
+              </ul>
+                  )}
+                  </div>
           </div>
         </div>
       </nav>
