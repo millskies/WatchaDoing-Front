@@ -1,0 +1,13 @@
+img {
+    width: 6%;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#namelink{
+    text-decoration: none;
+    color: beige;
+}

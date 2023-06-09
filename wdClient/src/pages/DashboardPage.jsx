@@ -43,7 +43,7 @@ export default function DashboardPage() {
           <ConfirmedEvents />
         </div>
         <div className="row2">
-        <h2>Events to be joined</h2>
+        <h2>Possible plans</h2>
         <hr className="events"></hr>
           <NewEvents />
         </div>
