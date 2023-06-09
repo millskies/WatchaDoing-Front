@@ -22,6 +22,7 @@ export default function OwnProfilePage() {
       <Navbar />
       <hr></hr>
       <div className="own-profile">
+      <div className="left-row">
       <div className="header image-container">
         <img src={currentUser.picture}/>
         <Link to={`/${username}/edit`}>Edit Profile</Link>
@@ -29,6 +30,8 @@ export default function OwnProfilePage() {
       <Friends userData={currentUser} />
       </div>
       </div>
+      </div>
+
       <div className="my-events">
       {!loadingUserInfo && <MyEvents events={currentUser.eventsCreated} />}
       </div>

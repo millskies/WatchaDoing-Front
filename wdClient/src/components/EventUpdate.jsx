@@ -115,7 +115,7 @@ export default function EventUpdate({ eventInfo }) {
               <div className="modal-footer">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="save-changes"
                   data-bs-dismiss="modal"
                 >
                   Save changes
