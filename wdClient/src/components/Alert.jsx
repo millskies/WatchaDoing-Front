@@ -15,7 +15,7 @@ export default function AlertModal(props) {
           <p>{props.message}</p>
         </div>
         <footer className=''>
-          <Button onClick={dismissErrorHandler}>Okay</Button>
+          <button onClick={dismissErrorHandler}>Okay</button>
         </footer>
     </div>
   );
