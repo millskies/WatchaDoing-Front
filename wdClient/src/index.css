@@ -5,6 +5,9 @@
   z-index: 1000000000;
 }
 
+.profilepicture {
+  width: 40px;
+}
 
 .pac-container{
   z-index: 2000000000;
