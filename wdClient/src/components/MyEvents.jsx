@@ -7,7 +7,7 @@ import { authContext } from "../contexts/auth.context";
 // import { useParams } from "react-router-dom";
 
 export default function MyEvents({ events }) {
-  const { baseUrl, getHeaders } = useContext(authContext);
+  const { baseUrl, getHeaders, getUserInfo } = useContext(authContext);
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   // const { username } = useParams();
   // const [error, setError] = useState("");

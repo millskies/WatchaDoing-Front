@@ -48,7 +48,7 @@ export default function Navbar() {
   return (
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/"><img src="../../public/logo.png"/></Link>
+          <Link className="navbar-brand" to="/"><img src="https://res.cloudinary.com/dqzjo5wsl/image/upload/v1686301470/watchadoin/xseovpeuapuiazq5j2j0.png"/></Link>
           <button
             className="navbar-toggler"
             type="button"
