@@ -385,6 +385,10 @@ button.current-friends{
   color: black;
 }
 
+img.mediumSizeAvatar{
+  width: 20%;
+}
+
 @media (max-width: 768px) {
   body{
     background-color:;
@@ -421,8 +425,18 @@ button.current-friends{
   p.welcome{
     margin-left: 20%;
   }
-.dashboardComponents{
+  div.dashboardComponents{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+hr.events{
+  width: 100%;
+}
+.eventMain{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 }
