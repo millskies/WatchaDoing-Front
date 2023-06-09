@@ -181,6 +181,10 @@ div.NewEvents{
   margin-left: 1rem;
 
 }
+img.friendIcon {
+  height: 40px;
+  max-width: 50px;
+}
 
 div.new-event{
   /* border: 2px solid rgb(255, 221, 158);
