@@ -17,7 +17,6 @@ function AuthProviderWrapper({ children }) {
 
   useEffect(() => {
     isAuthenticated();
-    console.log('&&&&&&&&&&&&&&&URL2: ', baseUrl2)
   }, []);
 
   useEffect(() => {
