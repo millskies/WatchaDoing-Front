@@ -5,7 +5,6 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import { useContext, useState } from "react";
 import Alert from '../components/Alert';
 import NavbarLoggedOut from "../components/NavbarLoggedOut";
-const baseUrl = "http://localhost:5005/auth"
 
 export default function SignUpPage() {
   const [username, setUsername] = useState("");
@@ -16,7 +15,7 @@ export default function SignUpPage() {
   const [error, setError] = useState('');
   const [loadingPic, setLoadingPic] = useState(false);
   const navigate = useNavigate();
-  const {isLoggedIn, loading} = useContext(authContext);
+  const {isLoggedIn, loading, baseUrl} = useContext(authContext);
 
   const handleFileUpload = (e) => {
     // console.log("The file to be uploaded is: ", e.target.files[0]);
@@ -28,7 +27,7 @@ export default function SignUpPage() {
     uploadData.append("picture", e.target.files[0]);
     setPicture("uploading");
     //service //call to axios
-    axios.post(baseUrl + "/upload", uploadData)
+    axios.post(baseUrl + "/auth/upload", uploadData)
       .then((response) => {
         console.log("response is: ", response);
         // response carries "fileUrl" which we can use to update the state
@@ -57,7 +56,7 @@ export default function SignUpPage() {
     const user = {username, email, password, passwordRepeat, picture};
     console.log("useeeeeer: ", user)
     if(!loadingPic){
-    axios.post(baseUrl + '/signup', user)
+    axios.post(baseUrl + '/auth/signup', user)
     .then(resp => {
       console.log(resp);
       navigate('/login');

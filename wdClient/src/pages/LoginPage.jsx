@@ -4,14 +4,14 @@ import { useContext, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import Alert from '../components/Alert';
 import NavbarLoggedOut from "../components/NavbarLoggedOut";
-const baseUrl = import.meta.env.VITE_API_URL;
+// const baseUrl = "http://localhost:5005";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const {isAuthenticated, isLoggedIn, loading} = useContext(authContext);
+  const {isAuthenticated, isLoggedIn, loading, baseUrl} = useContext(authContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function LoginPage() {
       setError("error: fields missing")
       return;
     } 
-    axios.post(baseUrl + '/login', {username, password})
+    axios.post(baseUrl + '/auth/login', {username, password})
     .then(({data}) => {
         let jwt = data.authToken;
         localStorage.setItem('authToken', jwt);

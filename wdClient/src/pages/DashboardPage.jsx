@@ -28,18 +28,21 @@ export default function DashboardPage() {
   return (
     <>
       <Navbar />
-      <header>
-      <img id="profilePicture" src={currentUser.picture} alt="profile picture"></img>
-        <p>Welcome, {user ? user.username : "anon"}!</p>
+      <hr></hr>
+      <header className="dashboard">
+      {/* <img id="profilePicture" src={currentUser.picture} alt="profile picture"></img> */}
+        <p className="welcome">Welcome, {user ? user.username : "anon"}! 👋</p>
         {/* {user && <Link to={`/${user.username}`}>Go to your profile page</Link>}
         {user && <Link to="/Testuser">Go to Testuser page</Link>} */}
       </header>
       <div className="dashboardComponents">
         <div className="row1">
-          <Calendar />
+          <h2>Upcomig events</h2>
           <ConfirmedEvents />
         </div>
         <div className="row2">
+        <h2>Events to be joined</h2>
+        <hr className="events"></hr>
           <NewEvents />
         </div>
       </div>

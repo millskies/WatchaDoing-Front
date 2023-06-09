@@ -66,7 +66,7 @@ export default function NewEvents() {
 //-------------------------- RETURN ------------------------------
   return (
     <div className="NewEvents">
-    <h3>New events</h3>
+    
     {/* {loadingNewEvents && <p className="fa-solid fa-lemon fa-shake"></p>} */}
     
     {!loadingNewEvents && newEvents.length == 0 && <p>No events yet</p>}
@@ -79,8 +79,9 @@ export default function NewEvents() {
 
         {/* ------- Button to either join or unjoin ---------- */}
         <Link to={`/events/${event._id}`}>More details</Link>
-        {joinedEvents.includes(event._id) ? <button type="button" className="btn btn-primary" onClick={ () => unJoinEvent(event._id)}>Unjoin</button> : <> <button type="button" className="btn btn-primary" onClick={ () => joinEvent(event._id)}>Join</button>
-        <button type="button" className="btn btn-danger" onClick={() => rejectEvent(event._id)}>Delete for me</button></>}
+        {joinedEvents.includes(event._id) ? <button type="button" className="unjoin" onClick={ () => unJoinEvent(event._id)}>Unjoin</button> : <> <button type="button" className="btn join" onClick={ () => joinEvent(event._id)}>Join</button>
+        <button type="button" className="reject" onClick={() => rejectEvent(event._id)}>Reject</button>
+        <hr className="newevents"></hr></>}
 
         {/* ----- Button to reject event and make it disappear from the list ------- */}
         
