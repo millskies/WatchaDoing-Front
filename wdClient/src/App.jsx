@@ -10,6 +10,7 @@ import ProfilePage from "./pages/profilePages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ErrorPage from "./pages/ErrorPage";
 import EventDetailPage from "./pages/EventDetailPage";
+import FindFriendsPage from "./pages/FindFriendsPage";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/:username" element={<ProfilePage/>}/>
         <Route path="/:username/edit" element={<EditProfilePage/>} />
         <Route path="/events/:eventId" element={<EventDetailPage/>} />
+        <Route path="/findfriends" element={<FindFriendsPage/>} />
         <Route path="/*" element={<ErrorPage/>} />
         <Route path="/404" element={<ErrorPage/>} />
       </Routes>      

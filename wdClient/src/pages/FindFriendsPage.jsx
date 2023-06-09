@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
-import PersonFindFriends from "../../components/Person/PersonFindFriends";
+import { useEffect, useState, useContext } from "react";
+import { authContext } from "../contexts/auth.context";
+import UserCard from "../components/UserCard";
+import axios from "axios";
 
-let friendsSearch;
 
-function FindFriendsPage() {
-  const { isLoggedIn, user } = useContext(AuthContext);
+export default function FindFriendsPage() {
+  const { isLoggedIn, user, baseUrl, loading } = useContext(authContext);
+
   const [findFriends, setFindFriends] = useState([]);
   const [update, setUpdate] = useState(0);
   const [AlertMsg, setAlertMsg] = useState('');
+  const [allUsers, setAllUsers] = useState([]);
+  const [searchResults, setSearchResults] = useState([])
 
   const updatePeople = (num, username) => {
     setAlertMsg({
@@ -19,34 +21,29 @@ function FindFriendsPage() {
     setUpdate(num);
   };
 
+  //Get all users from database to display in cards
   useEffect(() => {{
-    //make axios call when new route to get all users implemented
-        .then((result) => {
-          friendsSearch = result.data;
-          setAddFriends(friendsSearch);
+    axios.get(baseUrl + "/users/all")
+      .then(({data}) => {
+          setAllUsers(data);
         })
         .catch((err) => console.log(err));
     }
-  }, [isLoggedIn, update]);
+  }, [loading]);
 
+//Filter for search bar
   const formOnChangeHandle = (e) => {
-    let searchFriend = [...friendsSearch];
-    setAddFriends(
-      searchFriend.filter((friend) => {
+    setSearchResults(
+      allUsers.filter((friend) => {
         return (
-          friend.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
           friend.username.toLowerCase().includes(e.target.value.toLowerCase())
         );
       })
     );
   };
 
-  const errorHandler = () => {
-    setAlertMsg(null);
-  };
-
   return (
-    <div className="addFriendsDiv">
+    <div className="addFriends">
       <h1 className="title">Find Friends</h1>
       <div className="input-group rounded">
         <form className="searchBar" onChange={formOnChangeHandle}>
@@ -57,29 +54,24 @@ function FindFriendsPage() {
           />
         </form>
       </div>
-      <div className="contentContainerAddF">
-        {addFriends.length === 0 && <p>No results</p>}
-        {addFriends.map((person) => {
-          if (person.username !== "moderador") {
+      <div className="searchresults">
+        {searchResults.length === 0 && <p>No results</p>}
+        {searchResults.map((person) => {
             return (
-              <PersonAddFriends
+              <UserCard
                 person={person}
                 updatePeople={updatePeople}
                 key={person._id}
               />
             );
-          }
         })}
       </div>
-      {AlertMsg && (
+
+      {/* {AlertMsg && (
         <AlertModal
           title={AlertMsg.title}
-          message={AlertMsg.message}
-          onErrorClick={errorHandler}
-        />
-      )}
+          message={AlertMsg.message}/>
+      )} */}
     </div>
   );
 }
-
-export default FindFriendsPage;

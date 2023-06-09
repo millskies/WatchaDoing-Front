@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
+import axios from "axios";
+import { authContext } from "../contexts/auth.context";
 import { Link } from "react-router-dom";
 
 function UserCard({ person, updatePeople }) {
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, user, baseUrl } = useContext(AuthContext);
   const { _id, username, profileImage } = person;
 
   const friendRequestHandler = () => {
-    //Send friendrequest
+    axios.post(baseUrl + "/:friendId/sendrequest")
     .then((resp) => {
       updatePeople(Math.random() * 1000, username);
     });
@@ -15,7 +16,7 @@ function UserCard({ person, updatePeople }) {
 
   return (
     <div className="userCard">
-      <Link to={"/" + username} className="">
+      <Link to={"/users/" + username}>
         <img className="imgUserAddF profilePic" src={profileImage} alt={name} />
       </Link>
       <div className="userInfo">
