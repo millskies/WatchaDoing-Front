@@ -37,6 +37,7 @@ div#FriendsOverview{
   flex-wrap: nowrap;
   margin: 0 !important;
   max-width: 100%;
+  background-color: #fff;
 }
 #FriendsOverview{
 display: flex;
@@ -46,11 +47,13 @@ align-self: auto;
 }
 
 .header img {
-  max-width: 30%;
-  max-height: 30%;
+  width:10em;
+  height: 10em;
   border-radius: 50% !important;
-  margin-right: 0;
   margin-top: 10%;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
 }
 
 #OwnProfile.navbar{
@@ -90,6 +93,7 @@ div#FriendsAll{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  background-color: #fff;
 }
 
 #FriendsPending p{
@@ -193,15 +197,138 @@ padding: 0.5em;
 }
 .join{
   background-color: #fff !important;
-  color: black;
+  color: rgb(134, 205, 20);
+  text-transform:uppercase;
+  font-size: 1em;
+  border: none;
+  letter-spacing: 1px;
+  margin-left: 5%;
+  margin-right: 2%;
+}
+.unjoin{
+  background-color: #fff;
+  border: none;
+  text-transform: uppercase;
+  color: red;
+  font-size: 1em;
+  letter-spacing: 1px;
+  margin-left: 5%;
+}
+
+.reject{
+  background-color: #fff;
+  border: none;
+  text-transform: uppercase;
+  color: red;
+  font-size: 1em;
+  letter-spacing: 1px;
+}
+.delete{
+  background-color: #fff;
+  border: none;
+  text-transform: uppercase;
+  color: red;
+  font-size: 1em;
+  letter-spacing: 1px;
+  margin-left: 75%;
 }
 
 hr.events{
   margin: 2% 5%;
-  border-top: 0.15rem solid rgb(46, 46, 46);
+  border-top: 0.15rem solid orange;
 }
 
 hr.newevents{
   margin-top: 2%;
-  border-top: 0.1rem solid gray;
+  border-top: 0.1rem solid rgb(84, 83, 83);
+}
+
+.buttons{
+  align-items: end;
+}
+
+div.moreinfo{
+  align-content: end;
+  margin-left: 70%;
+
+}
+.moreinfo a{
+  color: orange;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: smaller;
+}
+
+.eventCreator{
+  border: none;
+}
+
+.eventMain{
+  margin-top: 5%;
+}
+
+.eventBody{
+  border: none;
+}
+.inviteUsers{
+  border: none;
+}
+.invitados{
+  border-top: 2px solid orange;
+  margin: 2% 5%;
+}
+.inviteUsers p{
+  margin-left: 5%;
+}
+
+.ConfirmedEvents p{
+  margin-left: 5%;
+}
+
+.create-event{
+  display: flex;
+  flex-direction: row;
+}
+#MyEvents{
+  border: none;
+
+}
+.create-event img{
+  width: 0.8em !important;
+  height: 0.8em;
+  font-size: 1rem;
+}
+
+button.boton-create{
+  border: none;
+  background-color: #fff;
+}
+
+div.card{
+  border: none;
+}
+
+.edit-button{
+  background-color: #fff !important;
+  color: orange;
+  text-transform:uppercase;
+  font-size: 1em;
+  border: none;
+  letter-spacing: 1px;
+  margin-left: 5%;
+  margin-right: 2%;
+}
+.edit-button img{
+  width: 1rem;
+  height: 1rem;
+ margin-left: 0;
+ padding: 0;
+}
+
+.event-title{
+  text-decoration: none;
+  border: none;
+  background-color: #fff;
+  text-transform: uppercase;
+  margin-right: 0;
 }
