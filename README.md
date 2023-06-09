@@ -58,5 +58,4 @@ $ npm start
 - FriendsPending
 - Notifications
 - CreateEvent
-- Map (google)
 - ...
