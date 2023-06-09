@@ -1,14 +1,3 @@
-.nav{
-    color: white;
-    font-size: 30px;
-    display: flex;   
-    margin-right: 50px;
-    text-decoration: none;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: 20px;
-    background-color: rgb(170, 249, 249)
-  }
 
   #signUp input,
   #login input {
@@ -21,8 +10,8 @@
     flex-direction: column;
   }
 
-  #signUp div,
-  #login div {
+  #signUp div
+   #signUp div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
