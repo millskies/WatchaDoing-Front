@@ -1,5 +1,6 @@
 import axios from "axios";
 import "../css/DashboardPage.css";
+import "../../src/index.css"
 import { authContext } from "../contexts/auth.context";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
