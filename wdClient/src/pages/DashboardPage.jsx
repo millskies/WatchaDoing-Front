@@ -38,6 +38,8 @@ export default function DashboardPage() {
       <div className="dashboardComponents">
         <div className="row1">
           <h2>Upcomig events</h2>
+        <hr className="events"></hr>
+
           <ConfirmedEvents />
         </div>
         <div className="row2">

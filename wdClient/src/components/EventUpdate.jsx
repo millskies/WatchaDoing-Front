@@ -14,7 +14,7 @@ export default function EventUpdate({ eventInfo }) {
 
   const [title, setTitle] = useState(eventInfo.title);
   const [description, setDescription] = useState(eventInfo.description);
-  const [icon, setIcon] = useState("");
+  // const [icon, setIcon] = useState("");
   const [datetime, setDatetime] = useState("");
   const [location, setLocation] = useState(eventInfo.location);
   const [error, setError] = useState("");
@@ -74,14 +74,14 @@ export default function EventUpdate({ eventInfo }) {
                 onChange={(e) => setDescription(e.target.value)}
               />
               <br />
-              <label>Icon</label>
+              {/* <label>Icon</label>
               <input
                 type="file"
                 placeholder="Icon"
                 value={icon}
                 onChange={(e) => setIcon(e.target.value)}
               />
-              <br />
+              <br /> */}
               <label>When?</label>
               <input
                 type="datetime-local"

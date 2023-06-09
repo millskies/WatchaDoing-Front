@@ -56,10 +56,11 @@ export default function EventDetailPage() {
       {!loading && !loadingEvent && (
         <div>
           <Navbar />
+          <hr></hr>
           <div>
             <div className="eventMain">
               <div className="eventCreator">
-                <p>Organized by:</p>
+                <p>Organized by</p>
                 <img className="mediumSizeAvatar" src={event.creator.picture} alt={event.creator.username} />
                 <p className="eventCreatorName">{event.creator.username}</p>
               </div>
@@ -69,8 +70,9 @@ export default function EventDetailPage() {
                 <p className="eventDescription">{new Date(event.dateTime).toLocaleString()}</p>
               </div>
             </div>
+            <hr className="invitados"></hr>
             <div className="inviteUsers">
-            <p>Check out who'll be there: </p>
+            <p>Check out who will be there </p>
               {event.confirmedJoiners.map((joiner) => {
                 return (
                   <div className="inviteUser" key={joiner._id}>
@@ -79,7 +81,9 @@ export default function EventDetailPage() {
                   </div>
                 );
               })}
+
             </div>
+            <hr className="invitados"></hr>
 
             {GoogleMap(event.coordinates)}
           </div>
